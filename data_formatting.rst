@@ -12,11 +12,16 @@ The basic dimensional space of a spectral dataset containing measurements
 from blazars is three dimensional and composed by frequency, flux and epoch.
 
 * frequency (or wavelength, energy)
- * measurement error if applicable
+
+  * measurement error if applicable
+
 * flux (or flux density)
- * measurement error
+
+  * measurement error
+
 * epoch (or MJD)
- * delta, or integration time range
+ 
+  * delta, or integration time range
 
 
 Flux table
@@ -138,36 +143,37 @@ Below, a suggestion of a better, more complete version of data file
 (data and metadata assembled from VERITAS-blazars page, but not
 to be taken as valid, useful values):
 
-```
-# object: Mrk 501
-# mjd: 54905
-#
-# article:
-#   label: Ap.J. 727, 129 (2011)
-#   arxiv: http://arxiv.org/abs/1011.5260
-#
-# description: >
-#   Spectral energy distribution for Mrk 501 averaged over all
-#   observations taken during the multifrequency campaign performed
-#   between 2009 March 15 (MJD 54905) and 2009 August 1 (MJD 55044).
-#
-# columns:
-#   - name: E
-#     unit: TeV
-#   - name: phi
-#     unit: TeV-1 s-1 m-2
-#   - name: ephi_low
-#     unit: TeV-1 s-1 m-2
-#   - name: ephi_up
-#     unit: TeV-1 s-1 m-2
-0.275	1.758E-005	5.721E-007	5.721E-007
-0.340	1.096E-005	3.148E-007	3.148E-007
-0.420	7.052E-006	2.092E-007	2.092E-007
-0.519	4.245E-006	1.330E-007	1.330E-007
-0.642	2.432E-006	8.439E-008	8.439E-008
-0.793	1.403E-006	5.487E-008	5.487E-008
-0.980	8.388E-007	3.642E-008	3.642E-008
-```
+.. code::
+
+ # object: Mrk 501
+ # mjd: 54905
+ #
+ # article:
+ #   label: Ap.J. 727, 129 (2011)
+ #   arxiv: http://arxiv.org/abs/1011.5260
+ #
+ # description: >
+ #   Spectral energy distribution for Mrk 501 averaged over all
+ #   observations taken during the multifrequency campaign performed
+ #   between 2009 March 15 (MJD 54905) and 2009 August 1 (MJD 55044).
+ #
+ # columns:
+ #   - name: E
+ #     unit: TeV
+ #   - name: phi
+ #     unit: TeV-1 s-1 m-2
+ #   - name: ephi_low
+ #     unit: TeV-1 s-1 m-2
+ #   - name: ephi_up
+ #     unit: TeV-1 s-1 m-2
+ 0.275	1.758E-005	5.721E-007	5.721E-007
+ 0.340	1.096E-005	3.148E-007	3.148E-007
+ 0.420	7.052E-006	2.092E-007	2.092E-007
+ 0.519	4.245E-006	1.330E-007	1.330E-007
+ 0.642	2.432E-006	8.439E-008	8.439E-008
+ 0.793	1.403E-006	5.487E-008	5.487E-008
+ 0.980	8.388E-007	3.642E-008	3.642E-008
+
 
 We can improve the data and metadata associated as necessary, as suggestion
 in the above sections.
