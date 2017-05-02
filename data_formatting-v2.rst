@@ -6,7 +6,7 @@ format [v1]_, we go here for a second iteration after Michael Daniel's
 feedback, adding some features from `SED data format for gamma-ray astronomy`__.
 
 .. [v1] see `data_formatting-v1.rst`
-.. _dfgra: gamma-astro-data-formats.rtfd.io/en/latest/spectra/flux_points/
+.. _dfgra: http://gamma-astro-data-formats.rtfd.io/en/latest/spectra/flux_points/
 __ dfgra_
 
 
