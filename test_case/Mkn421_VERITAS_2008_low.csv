@@ -1,24 +1,24 @@
 # %ECSV 0.9
 # ---
 # meta: !!omap
-# - object: Mrk 421
+# - OBJECT: Mrk 421
 #
-# - description:
+# - DESCRIBE:
 #    Spectral points for multiwavelength campaign;
 #    Observations taken between 2008 January 01 and 2008 June 05;
 #    Flux sensitivity 2.5e-11 < flux(E>1TeV) < 4.88e-11
 #
-# - mjd:
-#    start: 54466.39067
-#    end: 54618.20065
+# - MJD:
+#    START: 54466.39067
+#    END: 54618.20065
 #
-# - article:
+# - ARTICLE:
 #    label: Ap.J. 738, 25 (2011)
 #    url: http://iopscience.iop.org/0004-637X/738/1/25/
 #    arxiv: http://arxiv.org/abs/1106.1210
 #    ads: http://adsabs.harvard.edu/abs/2011ApJ...738...25A
 #
-# - comments:
+# - COMMENTS:
 #    - Name=Mrk421_2008_low
 #    - z=0.031
 #    - LiveTime(h)=16.3
