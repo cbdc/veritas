@@ -1,0 +1,58 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: Mrk 421
+#
+# - DESCRIBE:
+#    Spectral points for multiwavelength campaign;
+#    Observations taken between 2008 January 01 and 2008 June 05;
+#    Flux sensitivity 0.8e-10 < flux(E>1TeV) < 1.1e-10
+#
+# - MJD:
+#    START: 54502.46971 # unit=day
+#    END: 54622.18955   # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 738, 25 (2011)
+#    url: http://iopscience.iop.org/0004-637X/738/1/25/
+#    arxiv: http://arxiv.org/abs/1106.1210
+#    ads: http://adsabs.harvard.edu/abs/2011ApJ...738...25A
+#
+# - COMMENTS:
+#    Name: Mrk421_2008_highA
+#    Redshift: 0.031
+#    LiveTime: 1.4  # unit=hour
+#    Significance: 73.0
+#
+# - SED_TYPE: diff_flux_points
+#
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde       dnde_errn  dnde_errp
+0.275 1.702E-005 3.295E-006 3.295E-006
+0.340 1.289E-005 1.106E-006 1.106E-006
+0.420 8.821E-006 6.072E-007 6.072E-007
+0.519 5.777E-006 3.697E-007 3.697E-007
+0.642 3.509E-006 2.351E-007 2.351E-007
+0.793 2.151E-006 1.525E-007 1.525E-007
+0.980 1.302E-006 1.024E-007 1.024E-007
+1.212 6.273E-007 6.117E-008 6.117E-008
+1.498 3.310E-007 3.853E-008 3.853E-008
+1.851 1.661E-007 2.401E-008 2.401E-008
+2.288 1.124E-007 1.732E-008 1.732E-008
+2.828 6.158E-008 1.138E-008 1.138E-008
+3.496 3.347E-008 7.427E-009 7.427E-009
+4.321 1.160E-008 4.031E-009 4.031E-009
+5.342 5.230E-009 2.371E-009 2.371E-009
