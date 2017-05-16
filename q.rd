@@ -209,7 +209,7 @@
     <meta name="ssap.creationType">archival</meta>
     <meta name="ssap.testQuery">MAXREC=1</meta>
 
-    <publish render="ssap.xml" sets="local"/>
+    <!-- <publish render="ssap.xml" sets="ivo_managed"/> -->
 
     <ssapCore queriedTable="main">
       <FEED source="//ssap#hcd_condDescs"/>
