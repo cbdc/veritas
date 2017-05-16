@@ -39,7 +39,10 @@
       spectralUCD="em.freq"
       > //ssap#hcd
     </mixin>
-    <!-- <column name="ssa_reference"
+    <column name="bibcode"
+            type="text"
+            tablehead="Reference"/>
+    <column name="article"
             type="text"
             tablehead="Reference"/>
     <column name="ra"
@@ -55,7 +58,7 @@
             tablehead="DEC_J2000"
             verbLevel="20"
             description="Declination"
-            required="True"/> -->
+            required="True"/>
   </table>
 
 
@@ -63,17 +66,17 @@
     <mixin
       ssaTable="main"
       fluxDescription="Absolute Flux"
-      spectralDescription="Frequency"
+      spectralDescription="Energy"
       > //ssap#sdm-instance
     </mixin>
-    <column name="dnde_errp"
+    <!-- <column name="dnde_errp"
             ucd="stat.error;phot.flux.density;em.freq">
       <values nullLiteral="-999"/>
     </column>
     <column name="dnde_errn"
             ucd="stat.error;phot.flux.density;em.freq">
       <values nullLiteral="-999"/>
-    </column>
+    </column> -->
     <!-- <column name="ssa_timeExt">
       <values nullLiteral="-999"/>
     </column> -->
@@ -85,79 +88,34 @@
   <!-- =============== -->
 
   <data id="import">
-
-<!--
-    <property name="previewDir">previews</property>
--->
     <sources pattern='data/*.fits' recurse="False" />
 
     <fitsProdGrammar hdu="1" qnd="False">
       <rowfilter procDef="//products#define">
         <bind name="table">"\schema.data"</bind>
-<!--
-        <bind name="preview">\standardPreviewPath</bind>
-        <bind name="preview_mime">"image/png"</bind>
--->
       </rowfilter>
-<!--
-      <rowfilter name="addSDM">
-    <code>
-     yield row
-     baseAccref = os.path.splitext(row["prodtblPath"])[0]
-     row["prodtblAccref"] = baseAccref+".vot"
-     row["prodtblPath"] = row["prodtblAccref"]
-     row["prodtblMime"] = "application/x-votable+xml"
-     yield row
-    </code>
-   </rowfilter>
--->
     </fitsProdGrammar>
 
     <make table="main">
       <rowmaker idmaps="*">
-        <!-- <map key="dec">@DEC</map>
+        <map key="bibcode">@ARTICLE_label</map>
         <map key="ra">@RA</map>
-        <apply name="fixMissingTelescop">
-          <code>
-            try:
-              @instrument = @TELESCOP
-            except:
-              @instrument = 'MAGIC'
-            try:
-              @specstart = @EMIN
-            except:
-              @specstart = 50
-            try:
-              @specend = @EMAX
-            except:
-              @specend = 1000
-            try:
-              @timeext = @TOBS
-            except:
-              @timeext = None
-            if @EBL_CORR == 'TRUE':
-              @ebl_corrected = 1
-            else:
-              @ebl_corrected = 0
-          </code>
-        </apply> -->
+        <map key="dec">@DEC</map>
+        <map key="article">@ARTICLE_url</map>
         <apply procDef="//ssap#setMeta" name="setMeta">
-          <bind name="pubDID">\standardPubDID</bind>
-          <!-- <bind name="dstitle">@OBJECT+'_'+@EXTNAME+'_'+@DATE_OBS</bind> -->
-          <bind name="targname">@OBJECT</bind>
-          <!-- <bind name="alpha">@RA</bind>
-          <bind name="delta">@DEC</bind>
-          <bind name="dateObs">@DATE_OBS</bind> -->
-          <bind name="bandpass">"Gamma-ray"</bind>
-          <!-- <bind name="specstart">@specstart</bind>
-          <bind name="specend">@specend</bind>
-          <bind name="timeExt">@timeext</bind> -->
-          <bind name="length">@NAXIS2</bind>
+          <bind key="pubDID">\standardPubDID</bind>
+          <bind key="dstitle">@COMMENTS_Name</bind>
+          <bind key="targname">@OBJECT</bind>
+          <bind key="alpha">@RA</bind>
+          <bind key="delta">@DEC</bind>
+          <bind key="dateObs">@MJD_START + (@MJD_END-@MJD_START)/2</bind>
+          <bind key="bandpass">"Gamma-ray"</bind>
+          <bind key="redshift">@COMMENTS_Redshift</bind>
+          <bind key="timeExt">@COMMENTS_LiveTime * 3600</bind>
+          <bind key="length">@NAXIS2</bind>
         </apply>
         <apply procDef="//ssap#setMixcMeta" name="setMixcMeta">
-          <!-- <bind name="instrument">@instrument</bind>
-          <bind name="creator">@AUTHOR</bind>
-          <bind name="reference">@REFPAPER</bind> -->
+          <bind key="reference">@ARTICLE_url</bind>
         </apply>
       </rowmaker>
     </make>
@@ -177,10 +135,12 @@
         </setup>
         <code>
           fitsPath = products.RAccref.fromString(
-          self.sourceToken["accref"]).localpath
+                        self.sourceToken["accref"]).localpath
           hdu = pyfits.open(fitsPath)[1]
-          for row in enumerate(hdu.data):
-            yield {"spectral": row[1][0], "flux": row[1][2]}
+          for i,row in enumerate(hdu.data):
+              yield {   "spectral"  : row[0],
+                        "flux"      : row[1],
+                        "flux_error": (row[2]+row[3])/2 }
         </code>
       </iterator>
     </embeddedGrammar>
@@ -210,45 +170,51 @@
     </dbCore>
 
     <outputTable>
-      <!-- <autoCols>
-        ssa_targname, accref, mime, ssa_dateObs, ssa_reference,
-        ssa_specstart, ssa_specend, ssa_timeExt, ssa_instrument, ssa_length
-      </autoCols> -->
-      <FEED source="//ssap#atomicCoords"/>
-      <!-- <outputField original="ssa_specstart" displayHint="displayUnit=m"/>
-      <outputField original="ssa_specend" displayHint="displayUnit=m"/>
-      <outputField original="ssa_reference" select="array[ssa_reference,reference_doi]">
+        <outputField original="ssa_targname"/>
+        <outputField original="ssa_dateObs">
+            <!-- <formatter>
+                <![CDATA[
+                    yield data
+                ]]>
+            </formatter> -->
+        </outputField>
+        <outputField original="accref"/>
+
+      <!-- <FEED source="//ssap#atomicCoords"/> -->
+
+      <outputField name="Article" select="array[article,bibcode]">
         <formatter><![CDATA[
-          lbl = data[0]
-          url = data[1]
+          lbl = data[1]
+          url = data[0]
           yield T.a(href="%s"%url , target="_blank")["%s"%lbl]
         ]]></formatter>
       </outputField>
-      <outputField original="asdc_link" select="array[ra_j2000,dec_j2000]">
+
+      <outputField name="asdc_link" tablehead="ASDC Portal" select="array[ra,dec]">
         <formatter><![CDATA[
           _ra = data[0]
           _dec = data[1]
           url = 'http://tools.asdc.asi.it/SED/sed.jsp?&ra=%s&dec=%s' % (str(_ra),str(_dec))
-          yield T.a(href="%s"%url , target="_blank")["ASDC/SED tool"]
+          yield T.a(href="%s"%url , target="_blank")["ASDC SED tool"]
         ]]></formatter>
-      </outputField> -->
+      </outputField>
     </outputTable>
 
   </service>
 
-  <!-- <service id="ssa" allowed="ssap.xml">
+  <service id="ssa" allowed="ssap.xml">
     <meta name="shortName">Veritas SSAP</meta>
     <meta name="title">VERITAS Spectra SSAP Interface</meta>
     <meta name="ssap.dataSource">pointed</meta>
     <meta name="ssap.creationType">archival</meta>
     <meta name="ssap.testQuery">MAXREC=1</meta>
 
-    <publish render="ssap.xml" sets="ivo_managed"/>
+    <publish render="ssap.xml" sets="local"/>
 
     <ssapCore queriedTable="main">
-      <FEED source="//ssap#hcd_condDescs"/>   <!-- Do we have an option for ssap#mixc? Make sense?! -->
+      <FEED source="//ssap#hcd_condDescs"/>
     </ssapCore>
 
-  </service> -->
+  </service>
 
 </resource>

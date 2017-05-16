@@ -19,10 +19,10 @@
 #    ads: http://adsabs.harvard.edu/abs/2011ApJ...738...25A
 #
 # - COMMENTS:
-#    - Name=Mrk421_2008_verylow
-#    - z=0.031
-#    - LiveTime(h)=7.8
-#    - significance=77.6
+#    Name: Mrk421_2008_verylow
+#    Redshift: 0.031
+#    LiveTime: 7.8
+#    Significance: 77.6
 #
 # - SED_TYPE: diff_flux_points
 #

@@ -9,8 +9,8 @@
 #    Flux sensitivity 0.8e-10 < flux(E>1TeV) < 1.1e-10
 #
 # - MJD:
-#    START: 54502.46971
-#    END: 54622.18955
+#    START: 54502.46971 # unit=day
+#    END: 54622.18955   # unit=day
 #
 # - ARTICLE:
 #    label: Ap.J. 738, 25 (2011)
@@ -19,10 +19,10 @@
 #    ads: http://adsabs.harvard.edu/abs/2011ApJ...738...25A
 #
 # - COMMENTS:
-#    - Name=Mrk421_2008_highA
-#    - z=0.031
-#    - LiveTime(h)=1.4
-#    - significance=73.0
+#    Name: Mrk421_2008_highA
+#    Redshift: 0.031
+#    LiveTime: 1.4  # unit=hour
+#    Significance: 73.0
 #
 # - SED_TYPE: diff_flux_points
 #
