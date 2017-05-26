@@ -59,6 +59,9 @@
             verbLevel="20"
             description="Declination"
             required="True"/>
+    <column name="activitytag"
+            type="text"
+            tablehead="Activity-tag"/>
   </table>
 
 
@@ -88,7 +91,7 @@
   <!-- =============== -->
 
   <data id="import">
-    <sources pattern='data/*.fits' recurse="False" />
+    <sources pattern='data/pub/*.fits' recurse="False" />
 
     <fitsProdGrammar hdu="1" qnd="False">
       <rowfilter procDef="//products#define">
@@ -102,6 +105,7 @@
         <map key="ra">@RA</map>
         <map key="dec">@DEC</map>
         <map key="article">@ARTICLE_url</map>
+        <map key="activitytag">@COMMENTS_Tag</map>
         <apply procDef="//ssap#setMeta" name="setMeta">
           <bind key="pubDID">\standardPubDID</bind>
           <bind key="dstitle">@COMMENTS_Name</bind>
