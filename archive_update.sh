@@ -67,44 +67,18 @@ modify() {
   FLOGERR="${FILELOG}.error"
   csv2fits $FILEIN $FILEOUT > $FILELOG 2> $FLOGERR
   if [ "$?" == "0" ]; then
-    fits_commit_move $FILEOUT
+    mv $FILE   $REPO_VERITAS_DATA_PUB
+    commit
   fi
-  mv $FILELOG $FLOGERR $VERITAS_ARCHIVE_FEEDBACK
+  mv $FILELOG $FLOGERR   $VERITAS_ARCHIVE_FEEDBACK
 }
 
-fits_commit_move() {
-  # Move the fits file to VERITAS data(pub) repository
-  # and then commit+push the modification
-  mv $FITS $REPO_VERITAS_DATA_PUB
-  
-}
 delete() {
   # Remove filename from $REPO_VERITAS_DATA_PUB
   # and commit the change
+  rm "${REPO_VERITAS_DATA_PUB}/$FILENAME"
+  commit
 }
-
-file_modify () {
-  FILE=$1
-  DEST=$2
-  file_ok "${FILE}" || return 1
-  cp $FILE $DEST
-  return 0
-}
-
-file_delete () {
-  FILE=$1
-  rm "$FILE"
-  return 0
-}
-
-[ "$EVENT" == "IN_MODIFY" -o "$EVENT" == "IN_MOVED" ] && \
-    file_modify "${FULLFILENAME}" "${DESTDIR}"
-
-# [ "$EVENT" == "IN_MOVED_FROM" -o "$EVENT" == "IN_MOVED_TO" ] && \
-#     file_modify "${FULLFILENAME}" "${DESTDIR}"
-
-[ "$EVENT" == "IN_DELETE" ] && \
-    file_delete "${DESTDIR}/${FILENAME}"
 
 commit() {
   # Commit changes of $REPO_VERITAS_DATA_PUB
@@ -115,29 +89,13 @@ commit() {
   )
 }
 
+[ "$EVENT" == "IN_MODIFY" -o "$EVENT" == "IN_MOVED" ] && \
+    modify
 
+# [ "$EVENT" == "IN_MOVED_FROM" -o "$EVENT" == "IN_MOVED_TO" ] && \
+#     file_modify "${FULLFILENAME}" "${DESTDIR}"
 
-
-#!/bin/bash
-
-ARCHIVE='veritas'
-
-DESTDIR='/tmp/test_veritas'
-
-[ ! -d "$DESTDIR" ] && mkdir -p "$DESTDIR"
-
-# This script is going to be run by 'incrontab', whenever $ARCHIVE is updated
-#
-# Arguments
-#  $1 : filename modified, created or deleted
-#  $2 : incron event
-#  $3 : source directory
-
-FILENAME="$1"
-EVENT="$2"
-DIR="$3"
-
-FULLFILENAME="${DIR}/${FILENAME}"
-
+[ "$EVENT" == "IN_DELETE" ] && \
+    delete
 
 exit 0
