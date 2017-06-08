@@ -1,17 +1,17 @@
 #!/bin/bash
 set -e
 
-source env.sh
+source "${BASH_SOURCE%/*}/env.sh"
 
 # We'll need the VERITAS' public data directory declared..
-[ -z "$REPO_VERITAS" ] && { 1>&2 echo "Environment not loaded"; exit 1 }
+[ -z "$REPO_VERITAS" ] && { 1>&2 echo "Environment not loaded"; exit 1; }
 
 TMPDIR=$(mktemp -d)
 
 clean_exit() {
   rm -rf $TMPDIR
 }
-trap clean_exit EXIT ERR
+trap clean_exit EXIT
 
 
 csv2fits() {
@@ -26,7 +26,7 @@ csv2fits() {
   # Run the script to convert csv (veritas format) to fits
   source activate veritas
   script="${REPO_VERITAS_PROC}/csv2fits.py"
-  echo python script $FILEIN $FILEOUT > $FILELOG 2> $FLOGERR)
+  echo python script $FILEIN $FILEOUT > $FILELOG 2> $FLOGERR
   return $?
 }
 
@@ -54,7 +54,7 @@ modify() {
   FILEIN="${DIR_IN}/${FILENAME}"
   is_file_ok $FILEIN || return 1
 
-  _FROOT="${FILEIN%.*}"
+  _FROOT="${FILENAME%.*}"
   FILEOUT="${TMPDIR}/${_FROOT}.fits"
   FILELOG="${TMPDIR}/${_FROOT}_${EVENT#*_}.log"
   FLOGERR="${FILELOG}.error"
@@ -63,7 +63,7 @@ modify() {
   csv2fits $FILEIN $FILEOUT $FILELOG $FLOGERR
 
   if [ "$?" == "0" ]; then
-    cp $FILEOUT   $REPO_VERITAS_DATA_PUB
+    echo cp $FILEOUT   $REPO_VERITAS_DATA_PUB
     commit $EVENT
   else
     1>&2 echo "CSV2FITS failed. Output at '$DIR_LOG'"
@@ -94,7 +94,7 @@ commit() {
   # Commit changes of $REPO_VERITAS_DATA_PUB
   (
     echo cd $REPO_VERITAS                        && \
-    echo git commit -am "inotify change $EVENT"  &&\
+    echo git commit -am "inotify change $EVENT"  && \
     echo git push
   )
 }

@@ -31,8 +31,8 @@ help() {
 # Check number of arguments (3)
 [ "$#" -ne 3 ] && { help; exit 0; }
 
-FILENAME="$1"
-EVENT="$2"
+EVENT="$1"
+FILENAME="$2"
 DIR="$3"
 
 # Check whether (some) arguments are ok..
@@ -42,7 +42,7 @@ _F="${DIR}/${FILENAME}"
 [ ! -f "$_F" ]  && { 1>&2 echo "File '$_F' not found";    exit 1; }
 
 # Here is where things actually start
-source repo_update.sh
+source "${BASH_SOURCE%/*}/repo_update.sh"
 
 [ "$EVENT" == "IN_MODIFY" ] && modify $FILENAME $DIR $EVENT
 [ "$EVENT" == "IN_MOVED" ]  && modify $FILENAME $DIR $EVENT
