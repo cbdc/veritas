@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-_CURDIR=$(dirname ${BASH_SOURCE[0]})
+_CURDIR="$(cd $(dirname ${BASH_SOURCE[0]}); pwd)"
 
-export VERITAS_REPO="${_CURDIR}"
-export VERITAS_REPO_DATA="${VERITAS_REPO}/data"
-export VERTIAS_REPO_DATA_PUB="${VERITAS_REPO_DATA}/pub"
-export VERTIAS_REPO_DATA_SRC="${VERITAS_REPO_DATA}/src"
-
+export REPO_VERITAS="${_CURDIR}"
+export REPO_VERITAS_PROC="${REPO_VERITAS}/proc"
+export REPO_VERITAS_DATA="${REPO_VERITAS}/data"
+export REPO_VERITAS_DATA_PUB="${REPO_VERITAS_DATA}/pub"
+export REPO_VERITAS_DATA_SRC="${REPO_VERITAS_DATA}/src"

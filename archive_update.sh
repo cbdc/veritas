@@ -36,66 +36,16 @@ EVENT="$2"
 DIR="$3"
 
 # Check whether (some) arguments are ok..
-[ ! -d "$DIR" ] && { echo "Not a directory: '$DIR'"; exit 1; }
+#
+_F="${DIR}/${FILENAME}"
+[ ! -d "$DIR" ] && { 1>&2 echo "Not a directory: '$DIR'"; exit 1; }
+[ ! -f "$_F" ]  && { 1>&2 echo "File '$_F' not found";    exit 1; }
 
-# We'll need the VERITAS' public data directory declared..
-if [ -z "$REPO_VERITAS_DATA_PUB" ]; then
-  REPO_VERITAS_DATA_PUB="${DIR%/*}/pub"
-fi
+# Here is where things actually start
+source repo_update.sh
 
-# Now the file processing, functions namespaces...
-is_file_ok () {
-  FILE="$1"
-  [ -f "$FILE" ]        || return 1
-  [ "$FILE" != ".?*" ]  || return 1
-  return 0
-}
-
-modify() {
-  # Run veritas' csv2fits python script
-  # If csv2fits succeeds, copy result to $REPO_VERITAS_DATA_PUB
-  # and commit the change
-  TMPDIR="$1"
-  [[ -z "$TMPDIR" ]] && TMPDIR="/tmp"
-
-  FILEIN="${DIR}/${FILENAME}"
-  is_file_ok $FILEIN || return 1
-
-  _FROOT="${FILEIN%.*}"
-  FILEOUT="${TMPDIR}/${_FROOT}.fits"
-  FILELOG="${TMPDIR}/${_FROOT}_${EVENT#*_}.log"
-  FLOGERR="${FILELOG}.error"
-  csv2fits $FILEIN $FILEOUT > $FILELOG 2> $FLOGERR
-  if [ "$?" == "0" ]; then
-    mv $FILE   $REPO_VERITAS_DATA_PUB
-    commit
-  fi
-  mv $FILELOG $FLOGERR   $VERITAS_ARCHIVE_FEEDBACK
-}
-
-delete() {
-  # Remove filename from $REPO_VERITAS_DATA_PUB
-  # and commit the change
-  rm "${REPO_VERITAS_DATA_PUB}/$FILENAME"
-  commit
-}
-
-commit() {
-  # Commit changes of $REPO_VERITAS_DATA_PUB
-  (
-    cd $REPO_VERITAS_DATA_PUB               && \
-    git commit -am "inotify change $EVENT"  &&\
-    git push
-  )
-}
-
-[ "$EVENT" == "IN_MODIFY" -o "$EVENT" == "IN_MOVED" ] && \
-    modify
-
-# [ "$EVENT" == "IN_MOVED_FROM" -o "$EVENT" == "IN_MOVED_TO" ] && \
-#     file_modify "${FULLFILENAME}" "${DESTDIR}"
-
-[ "$EVENT" == "IN_DELETE" ] && \
-    delete
+[ "$EVENT" == "IN_MODIFY" ] && modify $FILENAME $DIR $EVENT
+[ "$EVENT" == "IN_MOVED" ]  && modify $FILENAME $DIR $EVENT
+[ "$EVENT" == "IN_DELETE" ] && delete $FILENAME $EVENT
 
 exit 0

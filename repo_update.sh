@@ -4,8 +4,7 @@ set -e
 source env.sh
 
 # We'll need the VERITAS' public data directory declared..
-: ${REPO_VERITAS?'VERITAS repo not defined'}
-[ -z "$REPO_VERITAS_DATA_PUB" ] && { 1>&2 echo "Environment not loaded"; exit 1 }
+[ -z "$REPO_VERITAS" ] && { 1>&2 echo "Environment not loaded"; exit 1 }
 
 TMPDIR=$(mktemp -d)
 
@@ -22,10 +21,12 @@ csv2fits() {
   FILELOG="$3"
   FLOGERR="$4"
 
+  : ${REPO_VERITAS_PROC?'VERITAS repo not defined'}
+
   # Run the script to convert csv (veritas format) to fits
   source activate veritas
-  script="${REPO_VERITAS}/proc/csv2fits.py"
-  python script $FILEIN $FILEOUT > $FILELOG 2> $FLOGERR)
+  script="${REPO_VERITAS_PROC}/csv2fits.py"
+  echo python script $FILEIN $FILEOUT > $FILELOG 2> $FLOGERR)
   return $?
 }
 
@@ -41,6 +42,8 @@ modify() {
   FILENAME="$1"
   DIR_IN="$2"
   EVENT="$3"
+
+  : ${REPO_VERITAS_DATA_PUB?'VERITAS repo not defined'}
 
   DIR_LOG="${DIR_IN}/log"
 
@@ -73,6 +76,9 @@ delete() {
   # Arguments:
   FILENAME="$1"
   EVENT="$2"
+
+  : ${REPO_VERITAS_DATA_PUB?'VERITAS repo not defined'}
+
   # Remove filename from $REPO_VERITAS_DATA_PUB
   # and commit the change
   rm "${REPO_VERITAS_DATA_PUB}/$FILENAME"
@@ -82,6 +88,9 @@ delete() {
 commit() {
   # Arguments:
   EVENT="$1"
+
+  : ${REPO_VERITAS?'VERITAS repo not defined'}
+
   # Commit changes of $REPO_VERITAS_DATA_PUB
   (
     echo cd $REPO_VERITAS                        && \
