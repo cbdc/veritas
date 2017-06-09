@@ -44,8 +44,8 @@ _F="${DIR}/${FILE}"
 # Here is where things actually start
 source "${BASH_SOURCE%/*}/archive_update.fsh"
 
-[ "$EVENT" == "IN_MODIFY" ] && modify $FILE $DIR $EVENT
-[ "$EVENT" == "IN_MOVED" ]  && modify $FILE $DIR $EVENT
-[ "$EVENT" == "IN_DELETE" ] && delete $FILE $DIR $EVENT
+[ "$EVENT" == "IN_MODIFY" ]    && modify $FILE $DIR $EVENT
+[ "$EVENT" == "IN_MOVED_TO" ]  && modify $FILE $DIR $EVENT
+[ "$EVENT" == "IN_DELETE" ]    && delete $FILE $DIR $EVENT
 
 exit 0
