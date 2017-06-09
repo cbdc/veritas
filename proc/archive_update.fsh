@@ -87,6 +87,16 @@ delete() {
   commit $EVENT
 }
 
+fetch_gavo() {
+  : ${GAVO_ROOT:?GAVO_ROOT not defined}
+  sleep 5
+  (
+    echo cd "${GAVO_ROOT}/inputs/veritas"  &&\
+    echo git fetch && git pull             &&\
+    echo gavo imp q.rd
+  )
+}
+
 commit() {
   # Arguments:
   EVENT="$1"
@@ -99,4 +109,5 @@ commit() {
     echo git commit -am "inotify change $EVENT"  && \
     echo git push
   )
+  fetch_gavo
 }
