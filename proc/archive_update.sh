@@ -42,7 +42,7 @@ _F="${DIR}/${FILE}"
 [ -f "$_F" ]  || { 1>&2 echo "File '$_F' not found";    exit 1; }
 
 # Here is where things actually start
-source "${BASH_SOURCE%/*}/repo_update.sh"
+source "${BASH_SOURCE%/*}/archive_update.fsh"
 
 [ "$EVENT" == "IN_MODIFY" ] && modify $FILE $DIR $EVENT
 [ "$EVENT" == "IN_MOVED" ]  && modify $FILE $DIR $EVENT
