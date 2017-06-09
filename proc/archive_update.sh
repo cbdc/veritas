@@ -29,23 +29,23 @@ help() {
 }
 
 # Check number of arguments (3)
-[ "$#" -ne 3 ] && { help; exit 0; }
+[ "$#" -eq 3 ] || { help; exit 0; }
 
 EVENT="$1"
-FILENAME="$2"
+FILE="$2"
 DIR="$3"
 
 # Check whether (some) arguments are ok..
 #
-_F="${DIR}/${FILENAME}"
-[ ! -d "$DIR" ] && { 1>&2 echo "Not a directory: '$DIR'"; exit 1; }
-[ ! -f "$_F" ]  && { 1>&2 echo "File '$_F' not found";    exit 1; }
+_F="${DIR}/${FILE}"
+[ -d "$DIR" ] || { 1>&2 echo "Not a directory: '$DIR'"; exit 1; }
+[ -f "$_F" ]  || { 1>&2 echo "File '$_F' not found";    exit 1; }
 
 # Here is where things actually start
 source "${BASH_SOURCE%/*}/repo_update.sh"
 
-[ "$EVENT" == "IN_MODIFY" ] && modify $FILENAME $DIR $EVENT
-[ "$EVENT" == "IN_MOVED" ]  && modify $FILENAME $DIR $EVENT
-[ "$EVENT" == "IN_DELETE" ] && delete $FILENAME $EVENT
+[ "$EVENT" == "IN_MODIFY" ] && modify $FILE $DIR $EVENT
+[ "$EVENT" == "IN_MOVED" ]  && modify $FILE $DIR $EVENT
+[ "$EVENT" == "IN_DELETE" ] && delete $FILE $EVENT
 
 exit 0

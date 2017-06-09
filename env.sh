@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-_CURDIR="$(cd $(dirname ${BASH_SOURCE[0]}); pwd)"
+_CURDIR="${BASH_SOURCE%/*}"
 
 export REPO_VERITAS="${_CURDIR}"
 export REPO_VERITAS_PROC="${REPO_VERITAS}/proc"

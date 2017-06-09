@@ -4,9 +4,9 @@ set -e
 source "${BASH_SOURCE%/*}/env.sh"
 
 # We'll need the VERITAS' public data directory declared..
-[ -z "$REPO_VERITAS" ] && { 1>&2 echo "Environment not loaded"; exit 1; }
+[ -n "$REPO_VERITAS" ] || { 1>&2 echo "Environment not loaded"; exit 1; }
 
-TMPDIR=$(mktemp -d)
+TMPDIR="$(mktemp -d)"
 
 clean_exit() {
   rm -rf $TMPDIR
@@ -15,6 +15,7 @@ trap clean_exit EXIT
 
 
 csv2fits() {
+  # Run the script to convert csv (veritas format) to fits
   # Arguments:
   FILEIN="$1"
   FILEOUT="$2"
@@ -23,7 +24,8 @@ csv2fits() {
 
   : ${REPO_VERITAS_PROC?'VERITAS repo not defined'}
 
-  # Run the script to convert csv (veritas format) to fits
+  # We have Anaconda managing our python env in the background
+  # The python virtual-env is properly called 'veritas'
   source activate veritas
   script="${REPO_VERITAS_PROC}/csv2fits.py"
   echo python script $FILEIN $FILEOUT > $FILELOG 2> $FLOGERR
