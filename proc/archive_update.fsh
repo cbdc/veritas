@@ -19,16 +19,16 @@ csv2fits() {
   # Arguments:
   FILEIN="$1"
   FILEOUT="$2"
-  FILELOG="$3"
-  FLOGERR="$4"
+  FILELOG="${3:-/dev/null}"
+  FLOGERR="${4:-/dev/null}"
 
   : ${REPO_VERITAS_PROC?'VERITAS repo not defined'}
 
   # We have Anaconda managing our python env in the background
   # The python virtual-env is properly called 'veritas'
   source activate veritas
-  script="${REPO_VERITAS_PROC}/csv2fits.py"
-  echo python script $FILEIN $FILEOUT > $FILELOG 2> $FLOGERR
+  _script="${REPO_VERITAS_PROC}/csv2fits.py"
+  python $_script $FILEIN $FILEOUT > $FILELOG 2> $FLOGERR
   return $?
 }
 
@@ -65,7 +65,7 @@ modify() {
   csv2fits $FILEIN $FILEOUT $FILELOG $FLOGERR
 
   if [ "$?" == "0" ]; then
-    echo cp $FILEOUT   $REPO_VERITAS_DATA_PUB
+    cp $FILEOUT   $REPO_VERITAS_DATA_PUB
     commit $EVENT
   else
     1>&2 echo "CSV2FITS failed. Output at '$DIR_LOG'"
