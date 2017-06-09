@@ -76,14 +76,21 @@ modify() {
 
 delete() {
   # Arguments:
-  FILENAME="$1"
-  EVENT="$2"
+  CSV_FILE="$1"
+  DIR_IN="$2"
+  EVENT="$3"
 
   : ${REPO_VERITAS_DATA_PUB?'VERITAS repo not defined'}
 
   # Remove filename from $REPO_VERITAS_DATA_PUB
   # and commit the change
-  rm "${REPO_VERITAS_DATA_SRC}/$FILENAME"
+  _trash="${REPO_VERITAS_DATA_SRC}/trash"
+  [ -d "$_trash" ] || mkdir $_trash
+  mv "${DIR_IN}/$CSV_FILE" $_trash
+
+  FITS_FILE="${CSV_FILE%.*}.fits"
+  rm "${REPO_VERITAS_DATA_PUB}/$FITS_FILE"
+
   commit $EVENT
 }
 
