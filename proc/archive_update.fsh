@@ -98,9 +98,9 @@ fetch_gavo() {
   : ${GAVO_ROOT:?GAVO_ROOT not defined}
   sleep 5
   (
-    echo cd "${GAVO_ROOT}/inputs/veritas"  &&\
-    echo git fetch && git pull             &&\
-    echo gavo imp q.rd
+    cd "${GAVO_ROOT}/inputs/veritas"  &&\
+    git fetch && git pull             &&\
+    gavo imp q.rd
   )
 }
 
@@ -112,9 +112,9 @@ commit() {
 
   # Commit changes of $REPO_VERITAS_DATA_PUB
   (
-    echo cd $REPO_VERITAS                        && \
-    echo git commit -am "inotify change $EVENT"  && \
-    echo git push
+    cd $REPO_VERITAS                        && \
+    git commit -am "inotify change $EVENT"  && \
+    git push
   )
   fetch_gavo
 }
