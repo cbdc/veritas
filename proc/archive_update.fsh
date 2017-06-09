@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-source "${BASH_SOURCE%/*}/env.sh"
+source "${BASH_SOURCE%/*}/../env.sh"
 
 # We'll need the VERITAS' public data directory declared..
 [ -n "$REPO_VERITAS" ] || { 1>&2 echo "Environment not loaded"; exit 1; }
