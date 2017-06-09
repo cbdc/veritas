@@ -26,7 +26,7 @@ csv2fits() {
 
   # We have Anaconda managing our python env in the background
   # The python virtual-env is properly called 'veritas'
-  source activate veritas
+  # source activate veritas
   _script="${REPO_VERITAS_PROC}/csv2fits.py"
   python $_script $FILEIN $FILEOUT > $FILELOG 2> $FLOGERR
   return $?
@@ -83,7 +83,7 @@ delete() {
 
   # Remove filename from $REPO_VERITAS_DATA_PUB
   # and commit the change
-  rm "${REPO_VERITAS_DATA_PUB}/$FILENAME"
+  rm "${REPO_VERITAS_DATA_SRC}/$FILENAME"
   commit $EVENT
 }
 
