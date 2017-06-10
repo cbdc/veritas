@@ -7,11 +7,20 @@ source "${BASH_SOURCE%/*}/../env.sh"
 [ -n "$REPO_VERITAS" ] || { 1>&2 echo "Environment not loaded"; exit 1; }
 
 TMPDIR="$(mktemp -d)"
+remove_temp() {
+  [ -d "$TMPDIR" ] && rm -rf $TMPDIR
+}
+
+LOCKFILE='/tmp/veritas.lock'
+remove_lock() {
+  [ -f $LOCKFILE ] && rm $LOCKFILE
+}
 
 clean_exit() {
-  rm -rf $TMPDIR
+  remove_temp
+  remove_lock
 }
-trap clean_exit EXIT
+trap clean_exit EXIT ERR
 
 
 csv2fits() {
@@ -28,8 +37,8 @@ csv2fits() {
   # The python virtual-env is properly called 'veritas'
   # source activate veritas
   _script="${REPO_VERITAS_PROC}/csv2fits.py"
-  python $_script $FILEIN $FILEOUT > $FILELOG 2> $FLOGERR
-  return $?
+  python $_script $FILEIN $FILEOUT #> $FILELOG 2> $FLOGERR
+  # return $?
 }
 
 is_file_ok () {
@@ -111,6 +120,12 @@ commit() {
 
   : ${REPO_VERITAS?'VERITAS repo not defined'}
 
+  while [ -f $LOCKFILE ]
+  do
+    sleep 1
+  done
+  touch $LOCKFILE
+
   # Commit changes of $REPO_VERITAS_DATA_PUB
   (
     cd $REPO_VERITAS                        && \
@@ -118,4 +133,5 @@ commit() {
     git push
   )
   fetch_gavo
+  remove_lock
 }
