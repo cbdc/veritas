@@ -35,6 +35,8 @@ EVENT="$1"
 FILE="$2"
 DIR="$3"
 
+[ "$FILE" != ".?*" ]  || { 1>&2 echo "Not a file of interest"; exit 1; }
+
 # Load functions
 source "${BASH_SOURCE%/*}/archive_update.fsh"
 

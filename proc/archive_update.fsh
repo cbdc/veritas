@@ -35,7 +35,6 @@ csv2fits() {
 is_file_ok () {
   FILE="$1"
   [ -f "$FILE" ]        || return 1
-  [ "$FILE" != ".?*" ]  || return 1
   return 0
 }
 
