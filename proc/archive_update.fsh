@@ -28,8 +28,8 @@ csv2fits() {
   # The python virtual-env is properly called 'veritas'
   # source activate veritas
   _script="${REPO_VERITAS_PROC}/csv2fits.py"
-  python $_script $FILEIN $FILEOUT > $FILELOG 2> $FLOGERR
-  return $?
+  python $_script $FILEIN $FILEOUT #> $FILELOG 2> $FLOGERR
+#  return $?
 }
 
 is_file_ok () {
