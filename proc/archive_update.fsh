@@ -38,7 +38,6 @@ csv2fits() {
   # source activate veritas
   _script="${REPO_VERITAS_PROC}/csv2fits.py"
   python $_script $FILEIN $FILEOUT #> $FILELOG 2> $FLOGERR
-  # return $?
 }
 
 is_file_ok () {
