@@ -110,6 +110,13 @@ fetch_gavo() {
   )
 }
 
+add_untracked() {
+  for uf in `git status --porcelain | xargs -I{} echo {} | cut -d' ' -f2`
+  do
+    git add $uf
+  done
+}
+
 commit() {
   # Arguments:
   EVENT="$1"
@@ -127,6 +134,7 @@ commit() {
   # Commit changes of $REPO_VERITAS_DATA_PUB
   (
     cd $REPO_VERITAS                        && \
+    add_untracked                           && \
     git commit -am "inotify change $EVENT"  && \
     git push
   )
