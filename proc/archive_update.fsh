@@ -91,7 +91,7 @@ delete() {
   FITS_FILE="${CSV_FILE%.*}.fits"
   rm "${REPO_VERITAS_DATA_PUB}/$FITS_FILE"
 
-  commit $EVENT
+  commit $EVENT 
 }
 
 fetch_gavo() {
@@ -107,6 +107,8 @@ fetch_gavo() {
 commit() {
   # Arguments:
   EVENT="$1"
+  FILE="$2"
+  ACT="$3"
 
   : ${REPO_VERITAS?'VERITAS repo not defined'}
 
