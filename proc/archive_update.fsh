@@ -91,9 +91,8 @@ delete() {
 
   # Remove filename from $REPO_VERITAS_DATA_PUB
   # and commit the change
-  # _trash="${REPO_VERITAS_DATA_SRC}/trash"
-  # [ -d "$_trash" ] || mkdir $_trash
-  # mv "${DIR_IN}/$CSV_FILE" $_trash
+  _trash="${REPO_VERITAS_DATA_SRC}/trash"
+  mv "${DIR_IN}/$CSV_FILE" "${_trash}/."
 
   FITS_FILE="${CSV_FILE%.*}.fits"
   rm "${REPO_VERITAS_DATA_PUB}/$FITS_FILE"
