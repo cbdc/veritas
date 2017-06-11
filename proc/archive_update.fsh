@@ -73,6 +73,7 @@ modify() {
 
   if [ "$?" == "0" ]; then
     cp $FILEOUT   $REPO_VERITAS_DATA_PUB
+    cp $FILEIN    $REPO_VERITAS_DATA_SRC
     commit $EVENT
   else
     1>&2 echo "CSV2FITS failed. Output at '$DIR_LOG'"
