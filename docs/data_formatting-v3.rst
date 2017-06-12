@@ -19,7 +19,7 @@ After the last interaction, [v2]_, some modifications over metadata
 keywords were applied to accomplish the processing data files need
 to follow.
 
-.. [v2] see `data_formatting-v1.rst`
+.. [v2] see `data_formatting-v2.rst`
 
 The modifications proposed here were motivated mainly to keep metadata
 as clear and clean as possible; some changes were motivated by the
@@ -101,7 +101,7 @@ document, the `Mrk421_2008_highA` observation file::
 The format:
 -----------
 
-In the following, consider *value* between `< >` as the value to be 
+In the following, consider *value* between `< >` as the value to be
 substituted. Notice the indentation, it is essencial for parsing the
 information correctly.
 
