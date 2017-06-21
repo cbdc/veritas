@@ -122,6 +122,8 @@ Let us consider the file for *Markarian-421* in a high state between
 
 .. _arXiv:1106.1210: https://arxiv.org/abs/1106.1210
 
+-----
+
 ::
 
   # %ECSV 0.9
