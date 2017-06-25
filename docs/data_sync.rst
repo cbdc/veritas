@@ -71,7 +71,7 @@ the command line argument ``-gui-address=""`` can be used when starting
 ``syncthing``.
 
 The files synchronization port instead must be changed in the config
-file[*]_. Nevertheless a simple modification where a line like the
+file [*]_. Nevertheless a simple modification where a line like the
 following will setup the service to use port `8080` instead:
 
 .. code:: xml
