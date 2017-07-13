@@ -1,26 +1,45 @@
 #!/bin/bash
 set -e
 
-source "${BASH_SOURCE%/*}/../env.sh"
+THIS=$(basename ${BASH_SOURCE})
+THISDIR=$(cd `dirname ${THIS}`; pwd)
+#TODO: probably define LOGDIR in base of LOGFILE (if there is)
+LOGDIR=${LOGDIR:-"${THISDIR}/log"}
+[ -d $LOGDIR ] || mkdir -p $LOGDIR
+
+source "${THISDIR}/../env.sh"
 
 # We'll need the VERITAS' public data directory declared..
 [ -n "$REPO_VERITAS" ] || { 1>&2 echo "Environment not loaded"; exit 1; }
 
+# TMPDIR will have all the temporary files and partial products.
+# At the end, products, log files will are copied from it.
 TMPDIR="$(mktemp -d)"
 remove_temp() {
   [ -d "$TMPDIR" ] && rm -rf $TMPDIR
 }
 
+# LOCKFILE will avoid concurrence between instances of 'git_commit' function
 LOCKFILE='/tmp/veritas.lock'
+create_lock() {
+  touch $LOCKFILE
+}
 remove_lock() {
   [ -f $LOCKFILE ] && rm $LOCKFILE
 }
 
 clean_exit() {
-  remove_temp
   remove_lock
+  remove_temp
 }
-trap clean_exit EXIT ERR
+trap clean_exit EXIT
+
+error_exit() {
+  cp ${TMPDIR}/* ${LOGDIR}/.
+  clean_exit
+}
+trap error_exit ERR
+
 
 
 csv2fits() {
@@ -54,7 +73,7 @@ modify() {
 
   : ${REPO_VERITAS_DATA_PUB?'VERITAS repo not defined'}
 
-  DIR_LOG="${DIR_IN}/log"
+  ARCHIVE_LOG="${DIR_IN}/log"
 
   # Run veritas' csv2fits python script
   # If csv2fits succeeds, copy result to $REPO_VERITAS_DATA_PUB
@@ -76,10 +95,10 @@ modify() {
     cp $FILEIN    $REPO_VERITAS_DATA_SRC
     commit $EVENT
   else
-    1>&2 echo "CSV2FITS failed. Output at '$DIR_LOG'"
+    1>&2 echo "CSV2FITS failed. Output at '$LOGDIR'"
   fi
   # Always copy the log/err output to archive's feedback
-  mv $FILELOG $FLOGERR   $DIR_LOG
+  cp $FILELOG $FLOGERR   $ARCHIVE_LOG
 }
 
 delete() {
@@ -98,7 +117,7 @@ delete() {
   _trash="${REPO_VERITAS_DATA_SRC}/trash"
   mv "${REPO_VERITAS_DATA_SRC}/$CSV_FILE" "${_trash}/."
 
-  commit $EVENT
+  git_commit $EVENT
 }
 
 fetch_gavo() {
@@ -118,19 +137,19 @@ add_untracked() {
   done
 }
 
-commit() {
+git_commit() {
   # Arguments:
   EVENT="$1"
   FILE="$2"
   ACT="$3"
 
-  : ${REPO_VERITAS?'VERITAS repo not defined'}
+  : ${REPO_VERITAS:?'VERITAS repo not defined'}
 
   while [ -f $LOCKFILE ]
   do
     sleep 1
   done
-  touch $LOCKFILE
+  create_lock
 
   # Commit changes of $REPO_VERITAS_DATA_PUB
   (
