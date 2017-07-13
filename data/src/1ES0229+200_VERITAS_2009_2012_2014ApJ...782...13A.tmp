@@ -40,7 +40,7 @@
 #   unit: ph / (m2 TeV s)
 #   datatype: float64
 #
-e_ref dnde  dnde_errn dnde_errp
+e_ref dnde dnde_errn dnde_errp
 0.291 1.20E-007 2.80E-008 2.80E-008
 0.427 6.10E-008 1.00E-008 1.00E-008
 0.628 2.20E-008 4.40E-009 4.40E-009
