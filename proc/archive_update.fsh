@@ -125,7 +125,7 @@ git_commit() {
   done
   create_lock
 
-  #make_changes $EVENT
+  make_changes $EVENT
 
   remove_lock
   return
