@@ -7,6 +7,8 @@ Ideally, a data file following a particular format is saved in a
 shared filesystem hosted by BSDC and, after a minute or so, the new
 dataset is available BSDC_ webpage and to the VO network.
 
+.. _BSDC: http://vo.bsdc.icranet.org
+
 The following lines explain the system designed for VERITAS.
 The guidelines to the implementation of the system are:
 
@@ -69,13 +71,14 @@ the command line argument ``-gui-address=""`` can be used when starting
 ``syncthing``.
 
 The files synchronization port instead must be changed in the config
-file[*]_. Nevertheless a simple modification where a line like the
+file [*]_. Nevertheless a simple modification where a line like the
 following will setup the service to use port `8080` instead:
 
-code::
-  (...)
+.. code:: xml
+
+  <!-- (...) -->
   <listenAddress>tcp://0.0.0.0:8080</listenAddress>
-  (...)
+  <!-- (...) -->
 
 
 .. _latest release: https://github.com/syncthing/syncthing/releases/latest
