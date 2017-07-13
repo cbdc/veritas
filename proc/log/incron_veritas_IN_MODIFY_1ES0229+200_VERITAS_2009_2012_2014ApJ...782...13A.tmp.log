@@ -1,0 +1,80 @@
+Thu Jul 13 17:28:02 CEST 2017
+-----------------------------------------------------
+++ id -u
++ '[' 1000 -eq 0 ']'
++ PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
++ export PATH
++ '[' '' ']'
++ '[' -d /etc/profile.d ']'
++ for i in '/etc/profile.d/*.sh'
++ '[' -r /etc/profile.d/bash_completion.sh ']'
++ . /etc/profile.d/bash_completion.sh
+++ '[' -n '4.3.30(1)-release' -a -n '' -a -z '' ']'
++ for i in '/etc/profile.d/*.sh'
++ '[' -r /etc/profile.d/gavo.sh ']'
++ . /etc/profile.d/gavo.sh
+++ export GAVO_ROOT=/var/gavo
+++ GAVO_ROOT=/var/gavo
++ unset i
++ '[' -n '4.3.30(1)-release' ']'
++ '[' -f /home/chbrandt/.bashrc ']'
++ . /home/chbrandt/.bashrc
+++ case $- in
+++ return
++ '[' -d /home/chbrandt/bin ']'
++ set -e
++ '[' 3 -eq 3 ']'
++ EVENT=IN_MODIFY
++ FILE=1ES0229+200_VERITAS_2009_2012_2014ApJ...782...13A.tmp
++ DIR=/home/chbrandt/data/shared_archive/veritas
++ [[ 1ES0229+200_VERITAS_2009_2012_2014ApJ...782...13A.tmp != .?* ]]
++ source /home/chbrandt/repos/veritas/proc/archive_update.fsh
+++ set -ueE
+++++ dirname /home/chbrandt/repos/veritas/proc/archive_update.fsh
++++ cd /home/chbrandt/repos/veritas/proc
++++ pwd
+++ THISDIR=/home/chbrandt/repos/veritas/proc
+++ LOGDIR=/home/chbrandt/repos/veritas/proc/log
+++ '[' -d /home/chbrandt/repos/veritas/proc/log ']'
+++ source /home/chbrandt/repos/veritas/proc/../env.sh
++++ _CURDIR=/home/chbrandt/repos/veritas/proc/..
++++ export REPO_VERITAS=/home/chbrandt/repos/veritas/proc/..
++++ REPO_VERITAS=/home/chbrandt/repos/veritas/proc/..
++++ export REPO_VERITAS_PROC=/home/chbrandt/repos/veritas/proc/../proc
++++ REPO_VERITAS_PROC=/home/chbrandt/repos/veritas/proc/../proc
++++ export REPO_VERITAS_DATA=/home/chbrandt/repos/veritas/proc/../data
++++ REPO_VERITAS_DATA=/home/chbrandt/repos/veritas/proc/../data
++++ export REPO_VERITAS_DATA_PUB=/home/chbrandt/repos/veritas/proc/../data/pub
++++ REPO_VERITAS_DATA_PUB=/home/chbrandt/repos/veritas/proc/../data/pub
++++ export REPO_VERITAS_DATA_SRC=/home/chbrandt/repos/veritas/proc/../data/src
++++ REPO_VERITAS_DATA_SRC=/home/chbrandt/repos/veritas/proc/../data/src
+++ '[' -n /home/chbrandt/repos/veritas/proc/.. ']'
++++ mktemp -d
+++ TMPDIR=/tmp/tmp.nvuElbOSch
+++ LOCKFILE=/tmp/veritas.lock
+++ trap clean_exit EXIT
+++ trap error_exit ERR
++ '[' IN_MODIFY == IN_MODIFY ']'
++ modify 1ES0229+200_VERITAS_2009_2012_2014ApJ...782...13A.tmp /home/chbrandt/data/shared_archive/veritas IN_MODIFY
++ FILENAME=1ES0229+200_VERITAS_2009_2012_2014ApJ...782...13A.tmp
++ DIR_IN=/home/chbrandt/data/shared_archive/veritas
++ EVENT=IN_MODIFY
++ : /home/chbrandt/repos/veritas/proc/../data/pub
++ ARCHIVE_LOG=/home/chbrandt/data/shared_archive/veritas/log
++ '[' -d /home/chbrandt/data/shared_archive/veritas/log ']'
++ FILEIN=/home/chbrandt/data/shared_archive/veritas/1ES0229+200_VERITAS_2009_2012_2014ApJ...782...13A.tmp
++ is_file_ok /home/chbrandt/data/shared_archive/veritas/1ES0229+200_VERITAS_2009_2012_2014ApJ...782...13A.tmp
++ FILE=/home/chbrandt/data/shared_archive/veritas/1ES0229+200_VERITAS_2009_2012_2014ApJ...782...13A.tmp
++ '[' -f /home/chbrandt/data/shared_archive/veritas/1ES0229+200_VERITAS_2009_2012_2014ApJ...782...13A.tmp ']'
++ return 1
++ return 1
+++ error_exit
+++ cp '/tmp/tmp.nvuElbOSch/*' /home/chbrandt/repos/veritas/proc/log/.
+cp: cannot stat '/tmp/tmp.nvuElbOSch/*': No such file or directory
++ clean_exit
++ remove_lock
++ '[' -f /tmp/veritas.lock ']'
++ remove_temp
++ '[' -d /tmp/tmp.nvuElbOSch ']'
++ rm -rf /tmp/tmp.nvuElbOSch
+-----------------------------------------------------
