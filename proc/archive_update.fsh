@@ -61,12 +61,6 @@ csv2fits() {
 
   : ${REPO_VERITAS_PROC:?'VERITAS repo not defined'}
 
-  #XXX: until Astropy-issue#6367 gets fixed we will workaround here..
-  FILETMP="${FILEIN}.tmp"
-  grep "^#" $FILEIN > $FILETMP
-  grep -v "^#" $FILEIN | tr -s "\t" " " >> $FILETMP
-  cp $FILETMP $FILEIN && rm $FILETMP
-
   # We have Anaconda managing our python env in the background
   # The python virtual-env is properly called 'veritas'
   # source activate veritas
@@ -175,11 +169,20 @@ modify() {
   FLOGERR="${FILELOG}.error"
   unset _FROOT
 
-  csv2fits $FILEIN $FILEOUT $FILELOG $FLOGERR
+  #XXX: until Astropy-issue#6367 gets fixed we will workaround here..
+  FILEIN_TMP="${TMPDIR}/${FILENAME}"
+  FILETMP="${TMPDIR}/${FILENAME}.tmp"
+  grep "^#" $FILEIN > $FILETMP
+  grep -v "^#" $FILEIN | tr -s "\t" " " >> $FILETMP
+  cp $FILETMP $FILEIN_TMP && rm $FILETMP
+
+  # csv2fits $FILEIN $FILEOUT $FILELOG $FLOGERR
+  csv2fits $FILEIN_TMP $FILEOUT $FILELOG $FLOGERR
 
   if [ "$?" == "0" ]; then
     cp $FILEOUT   $REPO_VERITAS_DATA_PUB
-    cp $FILEIN    $REPO_VERITAS_DATA_SRC
+    # cp $FILEIN    $REPO_VERITAS_DATA_SRC
+    cp $FILEIN_TMP    $REPO_VERITAS_DATA_SRC
     git_commit $EVENT NONE NONE
   else
     1>&2 echo "CSV2FITS failed. Output at '$LOGDIR'"
