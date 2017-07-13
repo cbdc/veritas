@@ -13,8 +13,8 @@ set -e
 # by "DELETE".
 #
 # The script expects three arguments:
-# - the filename that was modified/deleted
 # - the signal triggered
+# - the filename that was modified/deleted
 # - the directory where filename is/was
 
 help() {
