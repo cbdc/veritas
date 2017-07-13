@@ -13,8 +13,8 @@ set -e
 # by "DELETE".
 #
 # The script expects three arguments:
-# - the filename that was modified/deleted
 # - the signal triggered
+# - the filename that was modified/deleted
 # - the directory where filename is/was
 
 help() {
@@ -36,11 +36,6 @@ FILE="$2"
 DIR="$3"
 
 [[ "$FILE" != .?* ]]  || { 1>&2 echo "Not a file of interest"; exit 1; }
-
-# To avoid concurrence (specially when commit/fetching git)
-# we'll place a short random sleep before proceeding
-WAIT=$(echo "scale=2 ; 5*$RANDOM/32768" | bc -l)
-sleep "$WAIT"s
 
 # Load functions
 source "${BASH_SOURCE%/*}/archive_update.fsh"
