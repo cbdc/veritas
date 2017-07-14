@@ -1,0 +1,47 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: 1ES0414+009
+#
+# - DESCRIBE:
+#    Spectral points for a three year multi-wavelength study 
+#    with observations taken between 2008-2011. Data are time averaged.
+#
+# - MJD:
+#    START: 54475.125 # unit=day
+#    END: 55598.11944444 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 755, 118 (2012)
+#    url: http://iopscience.iop.org/0004-637X/755/2/118
+#    arxiv: http://arxiv.org/abs/1206.4080
+#    ads: http://adsabs.harvard.edu/abs/2012ApJ...755..118A
+#
+# - COMMENTS:
+#    Name: 1ES0414
+#    Tag: 2008-2011
+#    Redshift: 0.287
+#    LiveTime: 56.2 # unit=hour
+#    Significance: 6.4
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.2328 3.28e-8 1.09e-8 1.09e-8
+0.3214 1.57e-8 3.76e-9 3.76e-9
+0.4437 3.52e-9 1.65e-9 1.65e-9
+0.6124 1.17e-9 8.14e-10 8.14e-10
