@@ -1,4 +1,4 @@
-FILEROOTNAME#!/bin/bash
+#!/bin/bash
 set -ueE
 
 THISDIR=$(cd `dirname ${BASH_SOURCE}`; pwd)
