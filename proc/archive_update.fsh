@@ -134,7 +134,7 @@ git_commit() {
   do
     sleep 1
     let x=x+1
-    [ "$x" -lt "60" ] || { 1>&2 echo "Lock file got stuck."; exit 1; }
+    [ "$x" -lt "120" ] || { 1>&2 echo "Lock file got stuck."; exit 1; }
   done
   create_lock
 
