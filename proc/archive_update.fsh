@@ -190,7 +190,7 @@ modify() {
   cp $FILETMP $FILEIN_TMP && rm $FILETMP
   unset FILETMP
   # Now, workaround for badly named files
-  local BETTERFILENAME=$(echo $FILEIN_TMP | tr -s ".")
+  local BETTERFILENAME=$(echo $FILEIN_TMP | tr -s "." | tr "+" "p")
   mv $FILEIN_TMP $BETTERFILENAME
   FILEIN_TMP=$BETTERFILENAME
   unset BETTERFILENAME
