@@ -38,7 +38,9 @@ clean_exit() {
 trap clean_exit EXIT
 
 error_exit() {
-  cp ${TMPDIR}/* ${LOGDIR}/.
+  _bin="${LOGDIR}/leftovers"
+  [ -d $_bin ] || mkdir -p $_bin
+  cp ${TMPDIR}/* ${_bin}/.
   clean_exit
 }
 trap error_exit ERR
