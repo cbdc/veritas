@@ -189,6 +189,12 @@ modify() {
   grep -v "^#" $FILEIN | tr -s "\t" " " >> $FILETMP
   cp $FILETMP $FILEIN_TMP && rm $FILETMP
   unset FILETMP
+  # Now, workaround for badly named files
+  local BETTERFILENAME=$(echo $FILEIN_TMP | tr -s ".")
+  mv $FILEIN_TMP $BETTERFILENAME
+  FILEIN_TMP=$BETTERFILENAME
+  unset BETTERFILENAME
+  unset FILENAME
 
   # csv2fits $FILEIN $FILEOUT $FILELOG $FLOGERR
   csv2fits $FILEIN_TMP $FILEOUT $FILELOG $FLOGERR
