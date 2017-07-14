@@ -180,11 +180,6 @@ modify() {
   local FILEIN="${DIR_IN}/${FILENAME}"
   is_file_ok $FILEIN || return 1
 
-  local FILEROOTNAME="${FILENAME%.*}"
-  local FILEOUT="${TMPDIR}/${FILEROOTNAME}.fits"
-  local FILELOG="${TMPDIR}/${FILEROOTNAME}_${EVENT#*_}.log"
-  local FLOGERR="${FILELOG}.error"
-
   #XXX: until Astropy-issue#6367 gets fixed we will workaround here..
   local FILEIN_TMP="${TMPDIR}/${FILENAME}"
   local FILETMP="${TMPDIR}/${FILENAME}.tmp"
@@ -192,12 +187,19 @@ modify() {
   grep -v "^#" $FILEIN | tr -s "\t" " " >> $FILETMP
   cp $FILETMP $FILEIN_TMP && rm $FILETMP
   unset FILETMP
-  # Now, workaround for badly named files
-  local BETTERFILENAME=$(echo $FILEIN_TMP | tr -s "." | tr "+" "p")
+
+  # Workaround for badly named files
+  local BETTERFILENAME=$(echo $FILENAME | tr -s "." | tr "+" "p")
   mv $FILEIN_TMP $BETTERFILENAME
   FILEIN_TMP=$BETTERFILENAME
   unset BETTERFILENAME
   unset FILENAME
+
+  local FILEROOTNAME="$(basename $FILEIN_TMP)"
+  FILEROOTNAME="${FILEROOTNAME%.*}"
+  local FILEOUT="${TMPDIR}/${FILEROOTNAME}.fits"
+  local FILELOG="${TMPDIR}/${FILEROOTNAME}_${EVENT#*_}.log"
+  local FLOGERR="${FILELOG}.error"
 
   # csv2fits $FILEIN $FILEOUT $FILELOG $FLOGERR
   csv2fits $FILEIN_TMP $FILEOUT $FILELOG $FLOGERR
