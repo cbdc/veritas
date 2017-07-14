@@ -1,0 +1,47 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: 1ES0806+524
+#
+# - DESCRIBE:
+#    Spectral points for observations taken between Nov. 2007 to Apr 2008. 
+#    Data are time and flux averaged and are for mulitple array configurations.
+#
+# - MJD:
+#    START: 54064.40625 # unit=day
+#    END: 54508.20138889 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 690, L126 (2009)
+#    url: http://iopscience.iop.org/1538-4357/690/2/L126
+#    arxiv: http://arxiv.org/abs/0812.0978
+#    ads: http://adsabs.harvard.edu/abs/2009ApJ...690L.126A
+#
+# - COMMENTS:
+#    Name: 1ES0806+524
+#    Tag: 2007-2008
+#    Redshift: 0.138
+#    LiveTime: 65 # unit=hour
+#    Significance: 6.3
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.309764 1.60148e-7 9.29454e-8 9.29454e-8
+0.393534 7.50306e-8 2.96651e-8 2.96651e-8
+0.492374 3.43608e-8 1.40147e-8 1.40147e-8
+0.630029 1.1976e-8 7.64527e-9 7.64527e-9
