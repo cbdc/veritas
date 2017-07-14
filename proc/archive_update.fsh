@@ -99,15 +99,15 @@ make_changes() {
     cd $REPO_VERITAS
 
     if [[ "$EVENT" =~ "MOVED" || "$EVENT" =~ "MODIFY" ]]; then
-      for f in ${FILES}; do
-        git add $FILES
+      for f in "${FILES}"; do
+        git add $f
       done
     fi
 
     if [[ "$EVENT" =~ "DELETE" ]]; then
       _trash="${REPO_VERITAS_DATA_SRC}/trash"
-      for f in ${FILES}; do
-        git mv $FILES   ${_trash}/.
+      for f in "${FILES}"; do
+        git mv $f   ${_trash}/.
       done
     fi
 
@@ -115,7 +115,7 @@ make_changes() {
     git push
   )
   # and update GAVO
-  fetch_gavo
+  # fetch_gavo
   return
 }
 
@@ -126,9 +126,12 @@ git_commit() {
 
   : ${REPO_VERITAS:?'VERITAS repo not defined'}
 
+  x=0
   while [ -f $LOCKFILE ]
   do
     sleep 1
+    let x=x+1
+    [ "$x" < 60 ] || { 1>&2 echo "Lock file got stuck."; exit 1; }
   done
   create_lock
 
@@ -148,7 +151,7 @@ delete() {
 
   # Remove filename from $REPO_VERITAS_DATA_PUB
   # and commit the change
-  FITS_FILE="${CSV_FILE%.*}.fits"
+  local FITS_FILE="${CSV_FILE%.*}.fits"
   local FILEPUB="${REPO_VERITAS_DATA_PUB}/$FITS_FILE"
   local FILESRC="${REPO_VERITAS_DATA_SRC}/$CSV_FILE"
 
