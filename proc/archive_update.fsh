@@ -1,4 +1,4 @@
-#!/bin/bash
+FILEROOTNAME#!/bin/bash
 set -ueE
 
 THISDIR=$(cd `dirname ${BASH_SOURCE}`; pwd)
@@ -92,12 +92,26 @@ fetch_gavo() {
 
 make_changes() {
   local EVENT="$1"
+  local FILES="${@:2}"
 
   # Do the commit/push
   (
-    cd $REPO_VERITAS                        && \
-    add_untracked                           && \
-    git commit -am "inotify change $EVENT"  && \
+    cd $REPO_VERITAS
+
+    if [[ "$EVENT" =~ "MOVED" || "$EVENT" =~ "MODIFY" ]]; then
+      for f in ${FILES}; do
+        git add $FILES
+      done
+    fi
+
+    if [[ "$EVENT" =~ "DELETE" ]]; then
+      _trash="${REPO_VERITAS_DATA_SRC}/trash"
+      for f in ${FILES}; do
+        git mv $FILES   ${_trash}/.
+      done
+    fi
+
+    git commit -am "inotify changes $EVENT"           && \
     git push
   )
   # and update GAVO
@@ -107,9 +121,8 @@ make_changes() {
 
 git_commit() {
   # Arguments:
-  local EVENT="$1"
-  local FILE="$2"
-  local ACT="$3"
+  # local EVENT="$1"
+  # local FILES="${@:2}"
 
   : ${REPO_VERITAS:?'VERITAS repo not defined'}
 
@@ -119,7 +132,7 @@ git_commit() {
   done
   create_lock
 
-  make_changes $EVENT
+  make_changes $@
 
   remove_lock
   return
@@ -127,63 +140,70 @@ git_commit() {
 
 delete() {
   # Arguments:
-  CSV_FILE="$1"
-  DIR_IN="$2"
-  EVENT="$3"
+  local CSV_FILE="$1"
+  local DIR_IN="$2"
+  local EVENT="$3"
 
   : ${REPO_VERITAS_DATA_PUB?'VERITAS repo not defined'}
 
   # Remove filename from $REPO_VERITAS_DATA_PUB
   # and commit the change
   FITS_FILE="${CSV_FILE%.*}.fits"
-  rm "${REPO_VERITAS_DATA_PUB}/$FITS_FILE"
+  local FILEPUB="${REPO_VERITAS_DATA_PUB}/$FITS_FILE"
+  local FILESRC="${REPO_VERITAS_DATA_SRC}/$CSV_FILE"
 
-  _trash="${REPO_VERITAS_DATA_SRC}/trash"
-  mv "${REPO_VERITAS_DATA_SRC}/$CSV_FILE" "${_trash}/."
-
-  git_commit $EVENT NONE NONE
+  git_commit $EVENT $FILEPUB $FILESRC
   return
 }
 
 modify() {
   # Arguments:
-  FILENAME="$1"
-  DIR_IN="$2"
-  EVENT="$3"
+  local FILENAME="$1"
+  local DIR_IN="$2"
+  local EVENT="$3"
 
   : ${REPO_VERITAS_DATA_PUB?'VERITAS repo not defined'}
 
-  ARCHIVE_LOG="${DIR_IN}/log"
+  local ARCHIVE_LOG="${DIR_IN}/log"
   [ -d "$ARCHIVE_LOG" ] || mkdir $ARCHIVE_LOG
 
   # Run veritas' csv2fits python script
   # If csv2fits succeeds, copy result to $REPO_VERITAS_DATA_PUB
   # and commit the change
 
-  FILEIN="${DIR_IN}/${FILENAME}"
+  local FILEIN="${DIR_IN}/${FILENAME}"
   is_file_ok $FILEIN || return 1
 
-  _FROOT="${FILENAME%.*}"
-  FILEOUT="${TMPDIR}/${_FROOT}.fits"
-  FILELOG="${TMPDIR}/${_FROOT}_${EVENT#*_}.log"
-  FLOGERR="${FILELOG}.error"
-  unset _FROOT
+  local FILEROOTNAME="${FILENAME%.*}"
+  local FILEOUT="${TMPDIR}/${FILEROOTNAME}.fits"
+  local FILELOG="${TMPDIR}/${FILEROOTNAME}_${EVENT#*_}.log"
+  local FLOGERR="${FILELOG}.error"
 
   #XXX: until Astropy-issue#6367 gets fixed we will workaround here..
-  FILEIN_TMP="${TMPDIR}/${FILENAME}"
-  FILETMP="${TMPDIR}/${FILENAME}.tmp"
+  local FILEIN_TMP="${TMPDIR}/${FILENAME}"
+  local FILETMP="${TMPDIR}/${FILENAME}.tmp"
   grep "^#" $FILEIN > $FILETMP
   grep -v "^#" $FILEIN | tr -s "\t" " " >> $FILETMP
   cp $FILETMP $FILEIN_TMP && rm $FILETMP
+  unset FILETMP
 
   # csv2fits $FILEIN $FILEOUT $FILELOG $FLOGERR
   csv2fits $FILEIN_TMP $FILEOUT $FILELOG $FLOGERR
 
   if [ "$?" == "0" ]; then
-    cp $FILEOUT   $REPO_VERITAS_DATA_PUB
+    local FOUT=$(basename $FILEOUT)
+    local FILEPUB="${REPO_VERITAS_DATA_PUB}/$FOUT"
+    cp $FILEOUT     $FILEPUB
+    unset FOUT
+
     # cp $FILEIN    $REPO_VERITAS_DATA_SRC
-    cp $FILEIN_TMP    $REPO_VERITAS_DATA_SRC
-    git_commit $EVENT NONE NONE
+    local FOUT=$(basename $FILEIN_TMP)
+    local FILESRC="${REPO_VERITAS_DATA_SRC}/$FOUT"
+    cp $FILEIN_TMP  $FILESRC
+    unset FOUT
+
+    git_commit $EVENT $FILEPUB $FILESRC
+    unset FILEPUB FILESRC
   else
     1>&2 echo "CSV2FITS failed. Output at '$LOGDIR'"
   fi
