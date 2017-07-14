@@ -74,10 +74,10 @@ csv2fits() {
 
 
 add_untracked() {
-  for uf in `git status --porcelain | xargs -I{} echo {} | cut -d' ' -f2`
-  do
-    git add $uf
-  done
+  # for uf in `git status --porcelain | xargs -I{} echo {} | cut -d' ' -f2`
+  # do
+  #   git add $uf
+  # done
   return
 }
 
@@ -89,6 +89,7 @@ fetch_gavo() {
     git fetch && git pull             &&\
     gavo imp q.rd
   )
+  sleep 5
   return
 }
 
@@ -117,7 +118,7 @@ make_changes() {
     git push
   )
   # and update GAVO
-  # fetch_gavo
+  fetch_gavo
   return
 }
 
@@ -133,7 +134,7 @@ git_commit() {
   do
     sleep 1
     let x=x+1
-    [ "$x" < 60 ] || { 1>&2 echo "Lock file got stuck."; exit 1; }
+    [ "$x" -lt "60" ] || { 1>&2 echo "Lock file got stuck."; exit 1; }
   done
   create_lock
 
