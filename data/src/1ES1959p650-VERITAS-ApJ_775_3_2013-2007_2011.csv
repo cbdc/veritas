@@ -1,0 +1,51 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: 1ES1959+650
+#
+# - DESCRIBE:
+#    Spectrum from observations taken in 2007-2011. Source was in low flux state
+#    A total of 7.6h of 4 telescope configuration data are time and flux averaged for the period.
+#
+# - MJD:
+#    START: 54417 # unit=day
+#    END: 55862 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 775, 3 (2013)
+#    url: http://dx.doi.org/10.1088/0004-637X/775/1/3
+#    arxiv: http://arxiv.org/abs/1307.6772
+#    ads: http://adsabs.harvard.edu/abs/2013ApJ...775....3A
+#
+# - COMMENTS:
+#    Name: 1ES1959+650
+#    Tag: 2007-2011
+#    Redshift: 0.048
+#    LiveTime: 7.6 # unit=hour
+#    Significance: 16.4
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.3147 8.04e-7 2.92e-7 2.92e-7 
+0.4988 3.61e-7 7.36e-8 7.36e-8
+0.7906 1.12e-7 2.2e-8 2.2e-8
+1.253 3.67e-8 6.83e-9 6.83e-9
+1.986 1.52e-8 2.67e-9 2.67e-9
+3.147 3.61e-9 9.23e-10 9.23e-10
+4.988 1.09e-9 3.57e-10 3.57e-10
+7.906 1.49e-10 9.95e-11 9.95e-11
