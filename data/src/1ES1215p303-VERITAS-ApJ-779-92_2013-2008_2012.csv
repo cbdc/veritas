@@ -1,0 +1,47 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: 1ES1215+303
+#
+# - DESCRIBE:
+#    Observations taken between 2008 and 2012, but spectral points are for significant detection in 2011 only.
+#    Data are time and flux averaged for 2011 and have contemporaneous MWL observations.
+#
+# - MJD:
+#    START: 55563.52708333 # unit=day
+#    END: 55718.22916667 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 779, 92 (2013)
+#    url: http://dx.doi.org/10.1088/0004-637X/779/2/92
+#    arxiv: http://arxiv.org/abs/1310.6498
+#    ads: http://adsabs.harvard.edu/abs/2013ApJ...779...92A
+#
+# - COMMENTS:
+#    Name: B2 1215+30
+#    Tag: 2011 spectrum
+#    Redshift: 0.237
+#    LiveTime: 42 # unit=hour
+#    Significance: 10.4
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.30 2.0123e-7 5.7133e-8 5.7133e-8
+0.42 7.8418e-8 1.5038e-8 1.5038e-8
+0.60 1.6280e-8 5.0463e-9 5.0463e-9
+0.84 4.8670e-9 1.9049e-9 1.9049e-9
