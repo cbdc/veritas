@@ -1,0 +1,45 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: Mrk501
+#
+# - DESCRIBE:
+#     Quiescent state observations from a MWL campaign in March 2009
+#
+# - MJD:
+#    START: 54914.38333333 # unit=day
+#    END: 54914.48541667 # unit=day
+#
+# - ARTICLE:
+#    label: ApJ 729, 2 (2011)
+#    url: http://dx.doi.org/10.1088/0004-637X/729/1/2
+#    arxiv: http://arxiv.org/abs/1012.2200
+#    ads: http://adsabs.harvard.edu/abs/2011ApJ...729....2A
+#
+# - COMMENTS:
+#    Name: Markarian 501
+#    Tag: March 2009 quiescent
+#    Redshift: 0.034
+#    LiveTime: 2.43 # unit=hour
+#    Significance: 12.7
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_err
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_err
+0.2496 2.17e-06 4.67e-07
+0.3957 9.1e-07 1.56e-07
+0.6271 2.53e-07 4.98e-08
+0.9939 3.21e-08 1.39e-08
+1.575 1.98e-08 6.42e-09
+2.496 6.65e-09 2.75e-09
