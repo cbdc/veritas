@@ -1,0 +1,48 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: W Comae
+#
+# - DESCRIBE:
+#    Spectrum from 39.5h livetime of observations taken between Jan.-Apr. 2008. 
+#    Data are time and flux averaged and in V4 telescope configuration.
+#
+# - MJD:
+#    START: 54475.44722222 # unit=day
+#    END: 54509.04444444 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 684, 783 (2008)
+#    url: http://dx.doi.org/10.1086/592244
+#    arxiv: http://arxiv.org/abs/0808.0889
+#    ads: http://adsabs.harvard.edu/abs/2008ApJ...684L..73A
+#
+# - COMMENTS:
+#    Name: WComae
+#    Tag: 2008 pre flare
+#    Redshift: 0.102
+#    LiveTime: 39.5 # unit=hour
+#    Significance: 8.6
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.264428 8.99509e-7 2.23846e-7 2.23846e-7
+0.38201 3.66392e-7 7.46925e-8 7.46925e-8
+0.551877 5.49705e-8 2.26072e-8 2.26072e-8
+0.797279 1.40023e-8 9.52673e-9 9.52673e-9
+1.1518 2.3704e-9 3.46875e-10 3.46875e-10
