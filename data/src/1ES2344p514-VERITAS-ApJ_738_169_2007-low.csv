@@ -1,0 +1,49 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: 1ES2344+514
+#
+# - DESCRIBE:
+#    18 hours of observations taken over 37 nights between 0ct. 4, 2007 and Jan. 11, 2008
+#    This is for the low state observations
+#
+# - MJD:
+#    START: 54377.17996 # unit=day
+#    END: 54476.15056 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 738, 169 (2011)
+#    url: http://dx.doi.org/10.1088/0004-637X/738/2/169
+#    arxiv: http://arxiv.org/abs/1106.4594
+#    ads: http://adsabs.harvard.edu/abs/2011ApJ...738..169A
+#
+# - COMMENTS:
+#    Name: 1ES2344+514
+#    Tag: 2007 high
+#    Redshift: 0.044
+#    LiveTime: 16.0 # unit=hour
+#    Significance: 20.2
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.50690 1.85e-7 3.03e-8 3.03e-8
+0.82030 6.24e-8 6.29e-9 6.29e-9
+1.37600 1.90e-8 2.35e-9 2.35e-9
+2.20800 3.14e-9 6.80e-10 6.8e-10
+3.78900 6.15e-10 2.26e-10 2.26e-10
+5.98100 2.15e-10 9.84e-11 9.84e-11
