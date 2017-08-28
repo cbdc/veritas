@@ -1,0 +1,48 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: 1ES2344+514
+#
+# - DESCRIBE:
+#    18 hours of observations taken over 37 nights between 0ct. 4, 2007 and Jan. 11, 2008
+#    This is for high flare state observations taken on Dec 7, 2007.
+#
+# - MJD:
+#    START: 54441.10309 # unit=day
+#    END: 54441.13221 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 738, 169 (2011)
+#    url: http://dx.doi.org/10.1088/0004-637X/738/2/169
+#    arxiv: http://arxiv.org/abs/1106.4594
+#    ads: http://adsabs.harvard.edu/abs/2011ApJ...738..169A
+#
+# - COMMENTS:
+#    Name: 1ES2344+514
+#    Tag: 2007 high
+#    Redshift: 0.044
+#    LiveTime: 2.0 # unit=hour
+#    Significance: 11.0
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.48610 1.07e-6 1.85e-7 1.85e-7
+0.75020 3.09e-7 6.70e-8 6.70e-8
+1.10100 1.42e-7 3.35e-8 3.35e-8
+1.66500 4.37e-8 1.40e-8 1.4e-8
+2.32900 2.92e-8 9.38e-9 9.38e-9
