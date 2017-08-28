@@ -1,0 +1,48 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: RXJ0648.7+1516
+#
+# - DESCRIBE:
+#    Spectrum from 19h livetime of observations taken in March-April 2010. 
+#    Data are time and flux averaged and in V5 telescope configuration.
+#
+# - MJD:
+#    START: 55259.12500000 # unit=day
+#    END: 55301.14444444 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 742, 127 (2011)
+#    url: http://dx.doi.org/10.1088/0004-637X/742/2/127
+#    arxiv: http://arxiv.org/abs/1110.5949
+#    ads: http://adsabs.harvard.edu/abs/2011ApJ...742..127A
+#
+# - COMMENTS:
+#    Name: RXJ0648.7+1516
+#    Tag: 2010
+#    Redshift: 0.179
+#    LiveTime: 19.3 # unit=hour
+#    Significance: 5.2
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.214 1.140E-006 4.180E-007 4.180E-007
+0.246 4.370E-007 2.050E-007 2.050E-007
+0.283 3.050E-007 1.430E-007 1.430E-007
+0.325 2.340E-007 1.040E-007 1.040E-007
+0.476 2.820E-008 1.610E-008 1.610E-008
