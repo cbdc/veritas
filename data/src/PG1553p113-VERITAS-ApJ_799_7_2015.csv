@@ -1,0 +1,49 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: PG1553+113
+#
+# - DESCRIBE:
+#    Spectrum from 95h of observations taken between May 2010 to July 2011. 
+#    Data are time and flux averaged.
+#
+# - MJD:
+#    START: 55321.32569444 # unit=day
+#    END: 55744.26041667 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 799, 7 (2015)
+#    url: http://dx.doi.org/10.1088/0004-637X/799/1/7
+#    arxiv: http://arxiv.org/abs/1411.1439
+#    ads: http://adsabs.harvard.edu/abs/2015ApJ...799....7A
+#
+# - COMMENTS:
+#    Name: PG1553+113
+#    Tag: 2010-11
+#    Redshift: 
+#    LiveTime: 80 # unit=hour
+#    Significance: 53
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.175 4.668E-006 1.840E-007 1.840E-007
+0.217 2.050E-006 8.620E-008 8.620E-008
+0.268 8.760E-007 4.649E-008 4.649E-008
+0.330 3.236E-007 2.550E-008 2.550E-008
+0.408 9.996E-008 1.420E-008 1.420E-008
+0.504 4.168E-008 8.719E-009 8.719E-009
