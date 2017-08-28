@@ -216,7 +216,7 @@ modify() {
     cp $FILEIN_TMP  $FILESRC
     unset FOUT
 
-#    git_commit $EVENT $FILEPUB $FILESRC
+    git_commit $EVENT $FILEPUB $FILESRC
     unset FILEPUB FILESRC
   else
     1>&2 echo "CSV2FITS failed. Output at '$LOGDIR'"
