@@ -1,0 +1,48 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: RGBJ0710+591
+#
+# - DESCRIBE:
+#    Spectrum from 22h livetime of observations taken from December 2008 to March 2009. 
+#    Data are time and flux averaged and in V4 array configuration.
+#
+# - MJD:
+#    START: 54820.33611111 # unit=day
+#    END: 54892.24027778 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 715, L49 (2010)
+#    url: http://dx.doi.org/10.1088/2041-8205/715/1/L49
+#    arxiv: http://arxiv.org/abs/1005.0041
+#    ads: http://adsabs.harvard.edu/abs/2010ApJ...715L..49A
+#
+# - COMMENTS:
+#    Name: RGBJ0710+591
+#    Tag: 2008-9
+#    Redshift: 0.125
+#    LiveTime: 22.1 # unit=hour
+#    Significance: 5.5
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.4028 8.78e-08 3.62e-08 3.62e-08 
+0.6914 2.37e-08 7.72e-09 7.72e-09
+1.187 7.25e-09 2.2e-09 2.2e-09
+2.037 8.57e-10 5.57e-10 5.57e-10
+3.497 3.1e-10 1.96e-10 1.96e-10
