@@ -1,0 +1,47 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: BL Lacertae
+#
+# - DESCRIBE:
+#     A short flare caught on 28th June 2011 with 3 telescope observations
+#
+# - MJD:
+#    START: 55740.43194444 # unit=day
+#    END: 55740.46041667 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 762, 92 (2012)
+#    url: http://dx.doi.org/10.1088/0004-637X/762/2/92
+#    arxiv: http://arxiv.org/abs/1211.3073
+#    ads: http://adsabs.harvard.edu/abs/2013ApJ...762...92A
+#
+# - COMMENTS:
+#    Name: BL Lacertae
+#    Tag: 2011
+#    Redshift: 0.069
+#    LiveTime: 0.58 # unit=hour
+#    Significance: 21.8
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.224 1.69e-05 2.94e-06 2.94e-06
+0.282 6.53e-06 1.5e-06 1.5e-06
+0.355 5.34e-06 1.08e-06 1.08e-06
+0.447 1.03e-06 4.02e-07 4.02e-07
+0.562 4.34e-07 2.4e-07 2.4e-07
