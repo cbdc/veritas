@@ -1,0 +1,51 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: PKS1424+240
+#
+# - DESCRIBE:
+#    Spectrum from observations taken between February and June 2009 during an elevated state. 
+#    Data are time and flux averaged and observations taken in V4 array configuration.
+#
+# - MJD:
+#    START: 54881.43958333 # unit=day
+#    END: 55003.20902778 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 785, 16 (2014)
+#    url: http://dx.doi.org/10.1088/2041-8205/785/1/L16
+#    arxiv: http://arxiv.org/abs/1403.4308
+#    ads: http://adsabs.harvard.edu/abs/2014ApJ...785L..16A
+#
+# - COMMENTS:
+#    Name: PKS1424+240
+#    Tag: 2009
+#    Redshift: 0.604
+#    LiveTime: 28.5 # unit=hour
+#    Significance: 8.5
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.1268 4.46e-06 1.51e-06 1.51e-06
+0.1383 2.7e-06 1.01e-06 1.01e-06
+0.1508 2.4e-06 6.88e-07 6.88e-07
+0.1713 8.21e-07 3.05e-07 3.05e-07
+0.2037 3.47e-07 1.8e-07 1.8e-07
+0.2426 2.66e-07 1.14e-07 1.14e-07
+0.3125 8.04e-08 3.79e-08 3.79e-08
+0.5119 1.22e-08 6.45e-09 6.45e-09
