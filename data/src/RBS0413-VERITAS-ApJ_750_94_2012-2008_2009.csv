@@ -1,0 +1,47 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: RBS 0413
+#
+# - DESCRIBE:
+#    Spectrum from 48h of observations taken between September 2008 and January 2010. 
+#    Data are time and flux averaged and comprise mixed V4 and V5 array configurations.
+#
+# - MJD:
+#    START: 54732 # unit=day
+#    END: 54883 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 750, 94 (2012)
+#    url: http://dx.doi.org/10.1088/0004-637X/750/2/94
+#    arxiv: http://arxiv.org/abs/1204.0865
+#    ads: http://adsabs.harvard.edu/abs/2012ApJ...750...94A
+#
+# - COMMENTS:
+#    Name: RBS 0413
+#    Tag: 2008-10
+#    Redshift: 0.19
+#    LiveTime: 26.0 # unit=hour
+#    Significance: 5.5
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.299 1.260000033199E-07 6.479999825615E-08 6.479999825615E-08
+0.424 5.069999886587E-08 1.909999980398E-08 1.909999980398E-08
+0.602 1.529999948957E-08 7.420000169844E-09 7.420000169844E-09
+0.855 4.329999914177E-09 3.459273E-09 3.459273E-09
