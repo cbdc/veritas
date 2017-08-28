@@ -1,0 +1,52 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: 1ES1218+304
+#
+# - DESCRIBE:
+#    Spectrum from observations taken in 2008-9. 
+#    Data are time and flux averaged over 3 months and 4 telescope configuration.
+#
+# - MJD:
+#    START: 54829.49444444 # unit=day
+#    END: 54944.32500000 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 709, L163 (2010)
+#    url: http://dx.doi.org/10.1088/2041-8205/709/2/L163
+#    arxiv: http://arxiv.org/abs/1001.2590
+#    ads: http://adsabs.harvard.edu/abs/2010ApJ...709L.163A
+#
+# - COMMENTS:
+#    Name: 1ES1218+304
+#    Tag: 2008-9
+#    Redshift: 0.182
+#    LiveTime: 27.2 # unit=hour
+#    Significance: 21.8
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.19952624 1.7495378e-06 1.9308883e-07 1.9308883e-07
+0.2630268 8.6649321e-07 9.2817846e-08 9.2817846e-08
+0.34673685 3.6588286e-07 4.5800068e-08 4.5800068e-08
+0.45708817 1.7558693e-07 2.3041975e-08 2.3041975e-08
+0.60255957 7.4333186e-08 1.2067569e-08 1.2067569e-08
+0.79432821 2.9554477e-08 6.3346878e-09 6.3346878e-09
+1.0471286 7.3649822e-09 2.8832436e-09 2.8832436e-09
+1.3803843 3.321719e-09 1.4505459e-09 1.4505459e-09
+1.8197008 3.629207e-09 1.2697952e-09 1.2697952e-09
