@@ -1,0 +1,47 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: 3C66A
+#
+# - DESCRIBE:
+#    From 33h of live time observations taken between 2007-2008. 
+#    This is for a high flaring state in Oct. 8-10 2007
+#
+# - MJD:
+#    START: 54350 # unit=day
+#    END: 54800 # unit=day
+#
+# - ARTICLE:
+#    label: Ap.J. 693, 104 (2009)
+#    url: http://dx.doi.org/10.1088/0004-637X/693/2/L104
+#    arxiv: http://arxiv.org/abs/0901.4527
+#    ads: http://adsabs.harvard.edu/abs/2009ApJ...693L.104A
+#
+# - COMMENTS:
+#    Name: 3C66A
+#    Tag: 2007-2008 average
+#    Redshift: 0.335
+#    LiveTime: 32.2 # unit=hour
+#    Significance: 21.1
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.2263 1.08E-06 1.13E-07 1.95E-07
+0.2919 4.70E-07 5.40E-08 7.9E-08
+0.3734 1.48E-07 2.85E-08 2.67E-08
+0.462 5.47E-08 1.59E-08 1.83E-08
