@@ -169,7 +169,7 @@ def csv2fits(csv_file,fits_file=None):
     else:
         fileout = Path(fits_file).abspath()
 
-    t = Table.read(filein, format='ascii.ecsv')
+    t = Table.read(filein, format='ascii.ecsv', delimiter='\s')
 
     mjd_header2table(t)
     add_radec2header(t)

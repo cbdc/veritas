@@ -1,18 +1,20 @@
 #!/bin/bash
 set -ueE
 
-THISDIR=$(cd `dirname ${BASH_SOURCE}`; pwd)
-#TODO: probably define LOGDIR in base of LOGFILE (if there is)
-LOGDIR=${LOGDIR:-${THISDIR}/log}
+HERE=$(cd `dirname ${BASH_SOURCE}`; pwd)
+
+#TODO: probably define LOGDIR in base of LOGFILE (if there is one)
+LOGDIR=${LOGDIR:-${HERE}/log}
 [ -d $LOGDIR ] || mkdir -p $LOGDIR
 
-source "${THISDIR}/../env.sh"
+# Load environment variables indicating where veritas archive is
+source "${HERE}/../env.sh"
 
 # We'll need the VERITAS' public data directory declared..
 [ -n "$REPO_VERITAS" ] || { 1>&2 echo "Environment not loaded"; exit 1; }
 
 # TMPDIR will have all the temporary files and partial products.
-# At the end, products, log files will are copied from it.
+# At the end, products, log files will be copied from it.
 TMPDIR="$(mktemp -d)"
 remove_temp() {
   if [ -d "$TMPDIR" ]; then
@@ -31,19 +33,27 @@ remove_lock() {
   fi
 }
 
-clean_exit() {
+temp_clean() {
   remove_lock
   remove_temp
 }
-trap clean_exit EXIT
 
-error_exit() {
+exit_ok() {
+  temp_clean
+}
+trap exit_ok EXIT
+
+exit_error() {
   _bin="${LOGDIR}/leftovers"
   [ -d $_bin ] || mkdir -p $_bin
   cp ${TMPDIR}/* ${_bin}/.
-  clean_exit
+  temp_clean
+
+  ##NOTE: alert
+  #> message 'VERITAS' 'ERROR' "Pipeline crashed"
+  ##
 }
-trap error_exit ERR
+trap exit_error ERR
 
 
 
@@ -144,6 +154,24 @@ git_commit() {
   return
 }
 
+move_to_archive() {
+  local FILEOUT="$1"
+  local FILEIN="$2"
+  local EVENT="$3"
+
+  local FOUT=$(basename $FILEOUT)
+  local FILEPUB="${REPO_VERITAS_DATA_PUB}/$FOUT"
+  unset FOUT
+  cp $FILEOUT $FILEPUB
+
+  local FOUT=$(basename $FILEIN_TMP)
+  local FILESRC="${REPO_VERITAS_DATA_SRC}/$FOUT"
+  unset FOUT
+  cp $FILEIN $FILESRC
+
+  git_commit $EVENT $FILEPUB $FILESRC
+}
+
 delete() {
   # Arguments:
   local CSV_FILE="$1"
@@ -180,24 +208,37 @@ modify() {
   local FILEIN="${DIR_IN}/${FILENAME}"
   is_file_ok $FILEIN || return 1
 
-  #XXX: until Astropy-issue#6367 gets fixed we will workaround here..
+  # This block may be removed by now.
+  # It was added to workaround an issue in astropy where data tables
+  # with multiple \tabs and \spaces would raise an error.
+  # The python function --csv2fits-- has now an argument (delimiter)
+  # that should work this out.
+  #
   local FILEIN_TMP="${TMPDIR}/${FILENAME}"
   local FILETMP="${TMPDIR}/${FILENAME}.tmp"
   grep "^#" $FILEIN > $FILETMP
   grep -v "^#" $FILEIN | tr -s "\t" " " >> $FILETMP
   cp $FILETMP $FILEIN_TMP && rm $FILETMP
   unset FILETMP
+  # ---
 
-  # Workaround for badly named files
+  # If file is named with strange/ugly sintax, we clean it.
+  # Notice that it all happens in TMP-DIR, so there is no
+  # triggers happening when file is renamed.
+  #
   local BETTERFILENAME=$(echo $FILEIN_TMP | tr -s "." | tr "+" "p")
   mv $FILEIN_TMP $BETTERFILENAME
   FILEIN_TMP=$BETTERFILENAME
   unset BETTERFILENAME
   unset FILENAME
 
+  # Define log filenames and the output data file
+  #
   local FILEROOTNAME="$(basename $FILEIN_TMP)"
   FILEROOTNAME="${FILEROOTNAME%.*}"
+  #
   local FILEOUT="${TMPDIR}/${FILEROOTNAME}.fits"
+  #
   local FILELOG="${TMPDIR}/${FILEROOTNAME}_${EVENT#*_}.log"
   local FLOGERR="${FILELOG}.error"
 
@@ -205,23 +246,14 @@ modify() {
   csv2fits $FILEIN_TMP $FILEOUT $FILELOG $FLOGERR
 
   if [ "$?" == "0" ]; then
-    local FOUT=$(basename $FILEOUT)
-    local FILEPUB="${REPO_VERITAS_DATA_PUB}/$FOUT"
-    cp $FILEOUT     $FILEPUB
-    unset FOUT
-
-    # cp $FILEIN    $REPO_VERITAS_DATA_SRC
-    local FOUT=$(basename $FILEIN_TMP)
-    local FILESRC="${REPO_VERITAS_DATA_SRC}/$FOUT"
-    cp $FILEIN_TMP  $FILESRC
-    unset FOUT
-
-    git_commit $EVENT $FILEPUB $FILESRC
-    unset FILEPUB FILESRC
-  else
     1>&2 echo "CSV2FITS failed. Output at '$LOGDIR'"
+    ##NOTE: alert
+    #> message 'VERITAS' 'ERROR' "File conversion to fits failed"
+    ##
+  else
+    move_to_archive $FILEOUT $FILEIN_TMP $EVENT
   fi
+
   # Always copy the log/err output to archive's feedback
   cp $FILELOG $FLOGERR   $ARCHIVE_LOG
-  return
 }

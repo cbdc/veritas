@@ -33,9 +33,25 @@ WAIT=$(echo "scale=2 ; ${WAIT}*${WAIT}" | bc -l)
 sleep "$WAIT"s
 unset WAIT
 
-date                                                          > $LOGFILE
+DATE=$(date)
+echo $DATE                                                    > $LOGFILE
 echo '-----------------------------------------------------' >> $LOGFILE
 #TODO: Use a non-hardcoded Anaconda load (e.g, Environment Modules)
 export PATH="/opt/anaconda/bin:$PATH"
+
+##NOTE:alert
+#> message 'VERITAS' 'INFO' "$DATE: file $2, signal $1"
+##
 bash -x -l $REPO_VERITAS_PROC/archive_update.sh "$@"        &>> $LOGFILE
+##NOTE:alert
+#> status=$? && STS=$([[ $? -eq 0 ]] && echo 'succeeded' || echo 'failed')
+#> message 'VERITAS' 'INFO' "$DATE: file $2 processing $STS"
+##
 echo '-----------------------------------------------------' >> $LOGFILE
+
+
+# The alert system
+# ----------------
+# Either we load a module (source alerts.sh) or we put it in PATH
+# During development phase the module seems to be a better solution;
+# when in production, a script in PATH may be better.

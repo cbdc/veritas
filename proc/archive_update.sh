@@ -22,8 +22,8 @@ help() {
   echo "Usage: " `basename $0` "<arguments>"
   echo ""
   echo "Arguments are:"
-  echo '  $1 : filename modified, created or deleted'
-  echo '  $2 : incron event (IN_MODIFY,IN_DELETE,IN_MOVE)'
+  echo '  $1 : incron event (IN_MODIFY,IN_DELETE,IN_MOVE)'
+  echo '  $2 : filename modified, created or deleted'
   echo '  $3 : source directory'
   echo ""
 }
@@ -39,12 +39,6 @@ DIR="$3"
 
 # Load functions
 source "${BASH_SOURCE%/*}/archive_update.fsh"
-
-# Check whether (some) arguments are ok..
-#
-# _F="${DIR}/${FILE}"
-# [ -d "$DIR" ] || { 1>&2 echo "Not a directory: '$DIR'"; exit 1; }
-# [ -f "$_F" ]  || { 1>&2 echo "File '$_F' not found";    exit 1; }
 
 [ "$EVENT" == "IN_MODIFY" ]    && modify $FILE $DIR $EVENT
 [ "$EVENT" == "IN_MOVED_TO" ]  && modify $FILE $DIR $EVENT
