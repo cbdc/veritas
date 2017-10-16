@@ -1,0 +1,51 @@
+# %ECSV 0.9
+# ---
+# meta: !!omap
+# - OBJECT: 1ES2344+514
+#
+# - DESCRIBE:
+#    45 hours of data taken between 2007 and 2015 as part of a VERITAS monitoring program
+#
+# - MJD:
+#    START: 54313 # unit=day
+#    END: 57500 # unit=day
+#
+# - ARTICLE:
+#    label: MNRAS 471, 2117 (2017)
+#    url: https://doi.org/10.1093/mnras/stx1756
+#    arxiv: http://arxiv.org/abs/1708.02829
+#    ads: http://adsabs.harvard.edu/abs/2017MNRAS.471.2117A
+#
+# - COMMENTS:
+#    Name: 1ES2344+514
+#    Tag: 2007-2015
+#    Redshift: 0.044
+#    LiveTime: 47.2 # unit=hour
+#    Significance: 20.8
+#
+# - SED_TYPE: diff_flux_points
+# 
+# datatype:
+# - name: e_ref
+#   unit: TeV
+#   datatype: float64
+# - name: dnde
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errn
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+# - name: dnde_errp
+#   unit: ph / (m2 TeV s)
+#   datatype: float64
+#
+e_ref dnde dnde_errn dnde_errp
+0.251 4.64e-7 1.45e-7 1.52e-7 
+0.398 2.12e-7 2.40e-8 2.46e-8 
+0.631 6.06e-8 7.06e-9 7.29e-9 
+1.000 2.31e-8 2.63e-9 2.75e-9 
+1.585 7.68e-9 9.88e-10 1.05e-10 
+2.512 2.65e-9 3.99e-10 4.36e-10 
+3.981 5.71e-10 1.41e-10 1.64e-10 
+6.310 1.21e-10 5.09e-11 6.48e-11 
+10.000 7.61e-11 0.00e+00 0.00e+00
